@@ -1,0 +1,4 @@
+<Files ~ ".htaccess|mapabase.map|mapa_negocios.map$">
+order allow,deny
+deny from all
+</Files> 

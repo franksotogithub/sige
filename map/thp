@@ -1,0 +1,9 @@
+Deny from all
+FILES mapabase.map 
+Order deny,allow 
+Deny from all 
+/FILES 
+FILES mapa_negocios.map
+Order deny,allow 
+Deny from all 
+/FILES

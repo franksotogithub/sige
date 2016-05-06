@@ -1,0 +1,142 @@
+MAP
+				FONTSET "../fonts/fonts.fnt"
+				SYMBOLSET "../symbols/symbset.sym"
+				WEB		
+					METADATA
+						wms_title "Mapas Tematicos"
+						wms_abstract "Capas"			
+					END
+				END
+				PROJECTION	  
+					"init=epsg:4326"
+				END
+				UNITS dd
+				LAYER
+					NAME "giro38"
+					TYPE point
+					CONNECTIONTYPE postgis 		
+					CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+					DATA "geom from (select centroide geom,id_dato,id_manzana,id_giro,ccdd,ccpp ,totestab from datomxneg_mz where (id_giro=38) and  ((ccdd='07' and ccpp='01') or (ccdd='15' and ccpp='01'))) AS datomxneg_mz using UNIQUE id_dato using SRID=4326"													
+					STATUS on
+					TRANSPARENCY 100
+					TOLERANCE 7
+					TOLERANCEUNITS pixels 		
+					METADATA
+						WMS_SRS  "epsg:4326"
+						WMS_TITLE "Giros"	  
+					END  
+					PROJECTION
+						"init=epsg:4326"
+					END
+					CLASSITEM "totestab"
+					LABELITEM "totestab"
+					CLASS
+						NAME "1"
+						EXPRESSION ([totestab]=1)				  	
+						MAXSCALE 22550			
+						STYLE
+							SYMBOL circulo_fill
+							SIZE 15
+							COLOR 225 25 49
+							OUTLINECOLOR -1 -1 -1
+							#OFFSET 1 1
+						END #STYLE
+						STYLE
+							SYMBOL circulo
+							SIZE 14
+							COLOR 0 0 0
+							OUTLINECOLOR -1 -1 -1
+						END #STYLE
+						LABEL
+							COLOR 255 255 240
+							SIZE 6
+							FONT Vera
+							TYPE truetype							
+							POSITION cc														
+							MINSIZE 1
+							FORCE TRUE							
+						END #label
+					END #CLASS 
+					CLASS
+						NAME "2 - 3"
+						EXPRESSION ([totestab]>=2 AND [totestab]<=3)
+						MAXSCALE 22550
+						STYLE
+							SYMBOL circulo_fill
+							SIZE 17
+							COLOR 225 25 49
+							OUTLINECOLOR -1 -1 -1
+							OFFSET 1 1
+						END #STYLE	
+						STYLE
+							SYMBOL circulo
+							SIZE 16
+							COLOR 0 0 0
+							OUTLINECOLOR -1 -1 -1
+						END #STYLE
+						LABEL
+							COLOR 255 255 240
+							SIZE 6
+							FONT Vera
+							TYPE truetype							
+							POSITION cc														
+							MINSIZE 1
+							FORCE TRUE
+						END #label	 
+					END #CLASS		 
+					CLASS
+						NAME "3 - 5"
+						EXPRESSION ([totestab]  > 3 AND [totestab] <= 5)
+						MAXSCALE 22550
+						STYLE
+							SYMBOL circulo_fill
+							SIZE 18
+							COLOR 225 25 49
+							OUTLINECOLOR -1 -1 -1
+							#OFFSET 1 1
+						END #STYLE		
+						STYLE
+							SYMBOL circulo
+							SIZE 18
+							COLOR 0 0 0
+							OUTLINECOLOR -1 -1 -1
+						END #STYLE 
+						LABEL
+							COLOR 255 255 240
+							SIZE 6
+							FONT Vera
+							TYPE truetype							
+							POSITION cc														
+							MINSIZE 1
+							FORCE TRUE
+						END #label
+					END #CLASS		 
+					CLASS
+						NAME "6 a mas"
+						EXPRESSION ([totestab] >= 6)
+						MAXSCALE 22550
+						STYLE
+							SYMBOL circulo_fill
+							SIZE 21
+							COLOR 225 25 49
+							OUTLINECOLOR -1 -1 -1
+							#OFFSET 1 1
+						END #STYLE	
+						STYLE
+							SYMBOL circulo
+							SIZE 20
+							COLOR 0 0 0
+							OUTLINECOLOR -1 -1 -1
+						END #STYLE	 
+						LABEL
+							COLOR 255 255 240
+							SIZE 6
+							FONT Vera
+							TYPE truetype							
+							POSITION cc														
+							MINSIZE 1
+							FORCE TRUE
+						END #label
+					END #CLASS		
+				END # LAYER 
+			END # MAP

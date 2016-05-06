@@ -1,0 +1,1 @@
+ $('#txtRadio').keyup(function(e) { if(e.keyCode == 13) { alert('Enter key was pressed.'); } });

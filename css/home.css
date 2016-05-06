@@ -1,0 +1,291 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*
+***
+  Contenido del home
+  Va dentro de #cuerpo #cuerpoContenido #contenido
+***
+*/
+
+/****************************************************
+------------------  COMUNES HOME --------------------
+****************************************************/
+.contenedorCentralHome{
+	float: none;
+	width: 752px;
+	height: auto;
+	margin: 20px 0px 20px 0px;
+}
+
+
+.separadorContenidoHome{
+	float: left;
+	width: 728px;
+	height: 1px;
+	margin: 0px 24px 0px 0px;
+	background-color: #c5c5c5;
+}
+
+
+.tituloBloqueHome{
+	width: inherit;
+	height: auto;
+	margin: 0px 0px 15px 0px;
+	padding: 0px 0px 5px 0px;
+	/*Fuente*/
+	color: #ff9000;
+	font-family: 'Lucida Sans';
+	font-size: 14px;
+	font-weight: bold;
+}
+
+
+.lineaIzquierdaTituloBloqueHome{
+	background: url(../images/home/linea-izq-titulo-bloque-home.jpg) bottom left no-repeat;
+}
+
+
+.lineaDerechaTituloBloqueHome{
+	background: url(../images/home/linea-der-titulo-bloque-home.jpg) bottom left no-repeat;
+}
+
+
+/****************************************************
+-----------  PRINCIPALES INDICADORES HOME -----------
+****************************************************/
+.contenedorPrincipalesIndicadores{
+	float: left;
+	width: 728px;
+	height: auto;
+	margin: 0px 24px 15px 0px;
+	background: url(../images/home/principales-indicadores-linea.jpg) repeat-y;
+}
+
+
+/****************************************************
+--------------  BANNER IZQUIERDO HOME ---------------
+****************************************************/
+.contenedorBannerIzquierdo{
+	float: left;
+	width: 402px;
+	height: auto;
+	margin: 0px 22px 25px 0px;
+}
+
+
+/****************************************************
+--------------  BANNER DERECHO HOME -----------------
+****************************************************/
+.contenedorBannerDerecho{
+	float: left;
+	width: 300px;
+	margin: 0px 0 25px 0px;
+	height: auto;
+}
+
+
+/****************************************************
+---------------  PERU CIFRAS HOME -------------------
+****************************************************/
+.contenedorPeruCifras{
+	float: left;
+	width: 382px;
+	height: auto;
+	margin: 0px 36px 20px 10px;
+}
+
+.contenedorPeruCifras #mapa{
+	float: left;
+	width: 160px;
+	height: auto;
+}
+
+.contenedorPeruCifras #Perucifrasdata{
+	float: right;margin: 0px 0px 0px 0px;
+	width: 218px;
+	height: 245px;
+        position: relative;padding-left:-5px;
+}          
+.contenedorPeruCifras #Perucifrasdata table{
+	border:0; border-spacing: 0px;
+}    
+
+.contenedorPeruCifras #Perucifrasdata .datoss{
+	background-color:#42698A;font-weight: bold;
+	color:#ffffff;width:40%;
+        text-align: right;padding-right:3px;
+}
+
+.contenedorPeruCifras #Perucifrasdata .variablee{
+	width:45%;
+        text-align: right;padding-right:5px;font-size:9px;
+}
+
+.contenedorPeruCifras #Perucifrasdata .medidaa{
+	width:15%;
+        padding:0px 1px 0px 1px;text-align: center;
+	background-color:#42698A;font-size:9px;
+	color:#ffffff;
+}
+
+.contenedorPeruCifras #Perucifrasdata .datos{
+	background-color:#42698A;font-weight: bold;
+	color:#ffffff;width:45%;
+        text-align: right;padding:0px 3px 3px;font-size:9px;
+}
+
+.contenedorPeruCifras #Perucifrasdata .variable{
+	width:55%;padding:0px 5px 3px;
+        text-align: left;font-size:9px;
+}
+
+.contenedorPeruCifras #Perucifrasdata #cabeceradatos{
+	color:#4DC4DE;
+	font-size:12px;
+	font-weight: bold;
+}
+
+.contenedorPeruCifras #Perucifrasdata div{
+display: none;
+height: 100%;
+overflow: auto;
+position: absolute;
+width: 100%;
+}
+.contenedorPeruCifras #Perucifrasdata #peru{ display:block; }
+
+.piePeruCifras{
+	float: left;
+	width: 100%;
+	height: auto;
+	margin: 3px 0px 0px 0px;
+}
+
+.piePeruCifras .fuentePeruCifras{
+	float: left;
+	width: 50%;
+	text-align: left;
+	color: #676767;	
+	font-size: 10px;
+}
+
+.piePeruCifras .botonPeruCifras{
+	float: left;
+	width: 50%;
+	text-align: right;
+}
+
+.piePeruCifras .final{
+	width:100%;border-top:1px solid #000;float:left;margin:5px 0px 0px 0px;text-align:center;padding: 3px; 
+}
+
+/****************************************************
+-------------  INFORME TECNICO HOME -----------------
+****************************************************/
+.contenedorInformeTecnico{
+	float: left;
+	width: 280px;
+	height: auto;
+	margin: 0px 0 20px 10px;
+	/*background-color:#999999;*/	
+}
+
+.contenidoInformeTecnico{
+	width: auto;
+	padding: 10px 15px 10px 15px;
+	color: #676767;	
+	font-size: 11px;
+}
+
+.pieInformeTecnico{
+	float: none;
+	width: inherit;
+	text-align: right;
+}
+
+
+
+/****************************************************
+----------------  NOTICIAS HOME ---------------------
+****************************************************/
+.contenedorUltimasNoticias{
+	float: left;
+	width: 382px;
+	height: auto;
+	margin: 20px 36px 5px 10px;
+	text-align: justify;
+}
+
+
+.pieContenidoNoticia{
+	float: none;	
+	height: auto;
+	width: inherit;	
+	margin: 15px 0px 10px 0px;
+	text-align: right;
+}
+
+
+.articuloContenidoNoticia{
+	float: none;	
+	height: auto;
+	width: inherit;
+	margin: 0px 0px 10px 0px;
+}
+
+
+.articuloContenidoNoticia .fechaNoticia{
+	float: none;
+	margin-bottom:2px;
+	color: #474747;	
+	font-size: 12px;
+	font-weight: bold;	
+}
+
+
+.articuloContenidoNoticia .titularNoticia{
+	float: none;
+	margin-bottom:2px;
+	font-size:12px;
+	line-height:1.1;
+}
+
+
+.articuloContenidoNoticia .detalleNoticia{
+	float: none;	
+	color: #676767;	
+	font-size: 11px;
+	line-height:1.3;
+}
+
+
+.articuloContenidoNoticia a{
+	color: #0092b7;	
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+.articuloContenidoNoticia a:hover{
+	text-decoration: underline;
+}
+
+
+/****************************************************
+---------------  PUBLICACIONES HOME -------------------
+****************************************************/
+.contenedorPublicaciones{
+	float: left;
+	width: 280px;
+	height: auto;
+	margin: 20px 0 5px 10px;
+}
+
+.piePublicacionesHome{
+	float: none;
+	width: inherit;
+	text-align: right;
+	margin: 30px 0px 0px 0px;
+}

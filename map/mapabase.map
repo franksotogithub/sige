@@ -1,0 +1,402 @@
+##
+#MAPABASE INEI
+##
+MAP
+	NAME 'mapbase'
+	STATUS ON
+	EXTENT -77.3500000000001 -12.3070000000000 -76.3800100000000 -11.9737000000000 	
+	FONTSET "c:/ms4w/apps/signeg/config/fonts/fonts.fnt"
+	SYMBOLSET "c:/ms4w/apps/signeg/config/symbols/symbset.sym"
+	IMAGECOLOR 255 255 255
+	WEB
+		IMAGEPATH 'C:/ms4w/apps/Signeg/tmp/'
+		IMAGEURL 'tmp/'	
+		
+		METADATA
+			wms_title "Mapas Tematicos"
+			wms_abstract "Capas"			
+		END
+	END
+	PROJECTION	  
+	  	"proj=longlat"
+		"ellps=WGS84"
+		"datum=WGS84"
+		"no_defs"
+	END
+	UNITS dd
+	
+	#####################
+	QUERYMAP
+	  SIZE 200 200
+	  STATUS ON
+	  STYLE NORMAL
+	  COLOR 255 0 0
+	End	
+	#####################
+	REFERENCE
+		 STATUS ON
+		 IMAGE refmap.jpg
+		 SIZE 120 120
+		 EXTENT -77.3500000000001 -12.3070000000000 -76.3800100000000 -11.9737000000000
+		 COLOR -1 -1 -1
+		 OUTLINECOLOR 255 0 0
+	END  #REFERENCE
+	#####################
+	LEGEND
+		STATUS ON
+		KEYSIZE 25 25
+		TEMPLATE 'legend.html'
+		LABEL
+			COLOR 0 0 0
+			TYPE TRUETYPE
+			FONT arial
+			SIZE 12			
+		END # ENDE LABEL
+	END   #LEGEND
+	#####################
+	SCALEBAR
+		STATUS ON
+		STYLE 1
+		INTERVALS 4
+		IMAGECOLOR  255 255 255
+		LABEL
+			COLOR 0 0 0
+		   	SIZE SMALL		
+		END	#ENDE LABEL
+		SIZE 200 3
+		OUTLINECOLOR 0 0 0
+		COLOR  0 0 0
+		BACKGROUNDCOLOR  255 255 255
+		UNITS METERS
+	END   #SCALEBAR
+	#####################
+	
+#########################################################
+#  INICIANDO CAPAS                                      #
+#########################################################
+LAYER
+	NAME 'dptos'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from dpto AS dpto USING UNIQUE ccdd using SRID=4326"
+ 	#FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')"	
+	
+   	STATUS on
+ 	TRANSPARENCY 70
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Departamentos'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS
+		NAME 'Dptos'
+		MINSCALE 75000
+	  	STYLE	   			   		
+	   		#COLOR -1 -1 -1
+	   		OUTLINECOLOR 255 0 0
+			WIDTH 2.0
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#####################
+LAYER
+	NAME 'provincia'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from prov AS provincia USING UNIQUE ccdd using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Provincias'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS
+		MINSCALE 75000
+		NAME 'Provincias'	  	
+	 
+	  	STYLE	   			   		
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 112 112 112
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+#####################
+LAYER
+	NAME 'ciudades'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from ciudad AS ciudad USING UNIQUE ccdd using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 70
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Ciudades del Peru'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS
+		MINSCALE 75000
+		NAME 'Ciudades'	 
+	  	STYLE	   			   		
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 212 212 112
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#####################
+LAYER
+	NAME 'poligono_urbano'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"		
+	DATA "geom from nnuu AS poligono_urbano USING UNIQUE ccdd using SRID=4326"
+ 	FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')" 
+	
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Poligonos Urbanos'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS
+		MINSCALE 25000
+		NAME 'PoligonoUrbano' 	
+	 
+	  	STYLE	   			   		
+	   		#COLOR 0 0 0
+	   		OUTLINECOLOR 25 25 25
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#####################
+LAYER
+	NAME 'manzana'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from manzana AS manzanas USING UNIQUE id_manzana using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Manzanas'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS		
+		NAME 'manzanas'
+	 	MAXSCALE 25000
+	  	STYLE	   			   		
+	   		COLOR 247 245 229
+	   		OUTLINECOLOR 178 178 178
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+
+LAYER
+	NAME 'si_lima'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	
+	CLASS
+		NAME 'GRIFO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'GRIFO')
+	 	MAXSCALE 25000
+	  	STYLE
+	   		SYMBOL esri_grifo
+	   		SIZE 16
+	   		COLOR 255 0 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+LAYER
+	NAME 'si_IE'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from lugar_de_interes AS grifo USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Instituciones Educativas'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'	
+	CLASS
+		NAME 'IntitucionesEducativas'
+	  	EXPRESSION ('[lugar_nombre]' eq 'I.E. SECUNDARIA')
+	 	MAXSCALE 25000
+	  	STYLE
+	   		SYMBOL esri_ie
+	   		SIZE 16
+	   		COLOR 102 102 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS
+	
+	
+END #LAYER
+#########################################################
+LAYER
+	NAME 'via_tramos'
+	TYPE Line
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.58 port=5432 dbname=signeg_bd user=usSigneg password=Signeg2605"
+	DATA "geom from via_tramo AS vias USING UNIQUE id_via_tramo using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 70
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Vias de la Ciudad'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'cod_tipovia'	
+	CLASS
+		NAME 'Avenida'
+		MAXSCALE 25000
+		EXPRESSION '01'			 
+	  	STYLE
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 255 255 0
+			WIDTH 1.7
+	  	END #STYLE 
+	END #CLASS	
+	CLASS
+		MAXSCALE 15000
+		NAME 'Calle'
+		EXPRESSION '02'		 
+	  	STYLE
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 230 230 50
+			WIDTH 0.7
+	  	END #STYLE 
+	END #CLASS	
+ 	LABELITEM 'nombre_via'
+	
+	CLASS	
+		NAME "Nombre de Vias"
+			MAXSCALEDENOM 9000
+			#STYLE
+			#	COLOR 255 255 255
+			#	OUTLINECOLOR 0 0 0
+			#END
+			LABEL
+				COLOR 0 0 0
+				SIZE 6
+				FONT Vera
+				TYPE truetype
+				ANGLE auto
+				POSITION auto
+				#FORCE true
+				PARTIALS false
+				MINDISTANCE 300		# evita etiquetas duplicadas
+				OFFSET -5 -5
+			END
+	END #Class
+END #LAYER
+
+######################################################################### 
+ 
+END #End of Mapfile

@@ -1,0 +1,208 @@
+
+MAP
+	NAME "cenagro"
+	STATUS ON
+	SIZE 870 750
+	EXTENT -81.321193  -18.351596 -68.650840 -0.0382088 
+	FONTSET "../fonts/fonts.fnt"
+	SYMBOLSET "../symbols/symbset.sym"
+	IMAGECOLOR 255 255 255
+	
+	WEB		
+		#IMAGEPATH "/var/www/html/SIG-NEGOCIOS/map/"			
+		IMAGEURL "map/"
+		
+		METADATA
+			wms_title "Mapas Tematicos"
+			wms_abstract "Capas"			
+		END
+	END
+
+	PROJECTION	  
+	  	"proj=longlat"
+		"ellps=WGS84"
+		"datum=WGS84"
+		"no_defs"
+	END
+	UNITS dd
+    
+	OUTPUTFORMAT
+		NAME 'AGG_PNG'
+		DRIVER AGG/PNG
+		IMAGEMODE RGB
+		FORMATOPTION "QUANTIZE_FORCE=ON"
+		FORMATOPTION "QUANTIZE_DITHER=OFF"
+		FORMATOPTION "QUANTIZE_COLORS=256"
+	END
+
+	OUTPUTFORMAT
+	  NAME 'AGG_JPEG'
+	  DRIVER AGG/JPEG
+	  IMAGEMODE RGB
+	  FORMATOPTION "QUALITY=100"
+	END
+
+	LAYER
+		NAME "departamento1"
+		STATUS on
+		TYPE polygon
+		CONNECTIONTYPE OGR
+		CONNECTION "MSSQL:server=SRV-DESAWIN;database=IVCENAGRO_BDSIGEPROC;uid=us_ivcenagro_sigeproc;pwd=gepr@ce#0501;tables=v_MapaconvenioDpto(geom)"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		DATA "geom from v_MapaconvenioDpto as abc using unique dpto_id using with IX_DPTO_SPATIAL"
+		
+		METADATA
+			"wms_title"                       	"departamentos"
+			"wms_abstract"                    	"resumen"
+			"wms_srs"                         	"EPSG:4326"
+			"wms_extent"                     	"-81.321193  -18.351596 -68.650840 -0.0382088"
+			"wms_feature_info_mime_type"      	"text/html"
+		END
+		PROJECTION
+			"init=epsg:4326"
+		END	
+		
+		CLASSITEM "estado"
+		CLASS
+			NAME "blanco"
+			EXPRESSION ([estado] = 0)
+			STYLE 
+				COLOR 192 192 192
+				OUTLINECOLOR 0 0 0
+			END
+		END
+		CLASS
+			NAME "pendiente"
+			EXPRESSION ([estado] = 1)
+			STYLE 
+				COLOR 247 175 58
+				OUTLINECOLOR 0 0 0
+			END
+		END
+		CLASS
+			NAME "Rojo"
+			EXPRESSION ([estado] = 2)
+			STYLE 
+				COLOR 255 113 113
+				OUTLINECOLOR 0 0 0
+			END
+		END
+		CLASS
+			NAME "Verde"
+			EXPRESSION ([estado] = 3)
+			STYLE 
+				COLOR 125 194 67
+				OUTLINECOLOR 0 0 0
+			END
+		END
+	END
+	
+	LAYER
+		NAME 'dptos'
+		TYPE polygon
+		CONNECTIONTYPE postgis
+	 
+		CONNECTION "host=192.168.201.76 port=5432 dbname=signeg_bd_nac  user=usSigneg password=Signeg2605"
+		DATA "geom from dpto AS dpto USING UNIQUE ccdd using SRID=4326"
+		#FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')"	
+		
+		STATUS on
+		TRANSPARENCY 70
+		TOLERANCE 7
+		TOLERANCEUNITS pixels
+	 
+		METADATA
+		  WMS_SRS  'epsg:4326'
+		  WMS_TITLE 'Departamentos'
+		  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+		END #METADATA
+	 
+		PROJECTION
+			'init=epsg:4326'
+		END
+
+		CLASSITEM 'dpto_nombre'	
+			LABELITEM 'dpto_nombre'
+			
+		CLASS
+			NAME 'Dptos'
+			EXPRESSION /./
+			MINSCALE 75000
+			STYLE
+				COLOR 255 254 225
+			END
+			STYLE
+				#SYMBOL limite			
+				OUTLINECOLOR 255 216 56
+				WIDTH 2
+			END #STYLE
+					LABEL
+				COLOR 65 65 65
+				SIZE 5
+				FONT Arialb
+							FORCE TRUE
+							PARTIALS false
+							#POSITION LI
+				TYPE truetype			
+			END #label
+		END #CLASS
+	 
+	END #LAYER
+	
+	LAYER
+		NAME "departamento5"
+		STATUS on
+		TYPE polygon
+		CONNECTIONTYPE PLUGIN
+		PLUGIN "C:/ms4w/Apache/specialplugins/msplugin_mssql2008.dll"
+		CONNECTION "server=SRV-DESAWIN;uid=us_ivcenagro_sigeproc;pwd=gepr@ce#0501;database=IVCENAGRO_BDSIGEPROC;Integrated Security=false"
+		DATA "geom from v_MapaconvenioDpto as abc using unique dpto_id using with IX_DPTO_SPATIAL"
+		
+		METADATA
+			"wms_title"                       	"departamentos"
+			"wms_abstract"                    	"resumen"
+			"wms_srs"                         	"EPSG:4326"
+			"wms_extent"                     	"-81.321193  -18.351596 -68.650840 -0.0382088"
+			"wms_feature_info_mime_type"      	"text/html"
+		END
+		PROJECTION
+			"init=epsg:4326"
+		END	
+		
+		CLASSITEM "estado"
+		CLASS
+			NAME "blanco"
+			EXPRESSION ([estado] = 0)
+			STYLE 
+				COLOR 255 255 191
+				OUTLINECOLOR 104 109 95
+			END
+		END
+		CLASS
+			NAME "pendiente"
+			EXPRESSION ([estado] = 1)
+			STYLE 
+				COLOR 247 175 58
+				OUTLINECOLOR 104 109 95
+			END
+		END
+		CLASS
+			NAME "Rojo"
+			EXPRESSION ([estado] = 2)
+			STYLE 
+				COLOR 255 113 113
+				OUTLINECOLOR 104 109 95
+			END
+		END
+		CLASS
+			NAME "Verde"
+			EXPRESSION ([estado] = 3)
+			STYLE 
+				COLOR 125 194 67
+				OUTLINECOLOR 104 109 95
+			END
+		END
+				
+	END
+	
+END

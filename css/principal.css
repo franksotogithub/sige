@@ -1,0 +1,174 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*
+orden atributos: { display - float - margin - padding - border - width - height - font - text - color - background }
+*/
+body{font:normal normal normal 60%/1.4 "Lucida Sans", Arial, Helvetica, sans-serif; background-image: url(../images/SOLOfondo.jpg);
+background-repeat: no-repeat; background-position:top center; background-size: auto 183px;}
+
+/*tbody { overflow: auto; height: 100px; }*/
+/*p { font-size:1.1em; }*/
+.colFinal { margin-right:0 !important; padding-right:0 !important; }
+
+/*----------------------------------------------------------------
+CABECERA*/
+#headerr { overflow:hidden; margin:0 auto 0 0; height:175px; width: 1900px;}
+#fondo{ left:0px; margin:0 auto; z-index:-1; height:183px; position:absolute; }
+/*ESTILO PARA EL BOTON "BTNVER"*/
+#btnver { width:64px; height:22px; background:url(../images/botonver.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnpres { width:120px; height:16px; background:url(../images/btnpres.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnIngresar {width: 120px; height:22px; background: url(../images/btningresar.jpg) no-repeat; border: 0; cursor: pointer;}
+/*#btnretro { width:20px; height:24px; background:url(../images/btnretro.jpg) no-repeat; border: 0; cursor: pointer;}*/
+
+.colfiltros03{width: 960px;}
+.colfiltros14{width: 960px;}
+/*FIN DE ESTILO DEL BOTON VER*/
+/*DEFINIMOS HEADERS PARA CADA CENSO*/
+/*LA NOMENCLATURA PARA EL ARMADO DE LOS ESTILOS DE LA CABEZERA PARA CADA CENSO
+SER #header+NUMERO DE BANCO, ESE SERA EL ID PRINCIPAL PARA EL HEADER*/
+/*III Censo Nacional Agropecuario 1994*/
+#header { overflow:hidden; margin:0 auto; width:980px; background:url(../images/sige_cabecera.png) no-repeat; height: 135px;}
+#header #menuSecundario { padding:2px 0 4px 0; width:980px; height:15px; background:#00a1c7; }
+#header #menuSecundario ul { display:block; float:right; font-size:1.1em; color:#fff; }
+#header #menuSecundario ul li { float:left; padding-right:30px; }
+#header #menuSecundario ul li a { color:#fff; }
+#header #menuSecundario ul li a:hover { text-decoration:underline; }
+#header #headerContenido { padding:25px 26px 0 28px; width:926px; }
+#header #headerContenido #logoInei { float:left; width:169px; height:101px; }
+#header #headerContenido #headerDerecha { float:right; text-align:left; padding-top: 10px;}
+#header #headerContenido #headerDerecha #logoPcm { margin-bottom:1.2em; }
+#header #headerContenido #headerDerecha #busc { float:right; margin-bottom:1.4em; width:284px; height:22px; background:url(../images/buscador-bg.png) no-repeat; }
+#header #headerContenido #headerDerecha #busc .buscadorCaja { float:left; margin:3px 0 0 4px; padding:1px 4px 0 4px; border:0; width:205px; height:15px;  font-size:1.1em; }
+#header #headerContenido #headerDerecha #busc .buscadorBoton { float:right; border:0; margin:1px 1px 0 0; width:64px; height:20px; cursor:pointer; background:transparent; outline:none; }
+#header #headerContenido #headerDerecha #nav { display:block; overflow:hidden; margin-right:-26px; height:32px; clear:both;/*para que baje y no esté junto al buscador*/ }
+#header #headerContenido #headerDerecha #nav #menuPrincipalBorde { float:left; width:20px; height:32px; background:url(../images/menu-bg-izq.png) no-repeat; }
+
+/*#header #headerContenido #headerDerecha #nav #menuPrincipal { float:left; padding-right:20px; height:32px; background:url(../images/menu-bg.png) repeat-x #00a1c7; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul { display:block; margin:0 10px 0 5px; padding-top:7px; font:1.2em "Lucida Sans", Arial, Helvetica, sans-serif; color:#fff; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul li { float:left; padding:3px 14px 7px 14px; border-right:1px solid #80c1d3; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul li img { margin-left:.8em; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul li.noLinea { padding-right:0; border:0; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul li.final { padding:0; border-right:0; }
+#header #headerContenido #headerDerecha #nav #menuPrincipal ul li a { font-weight:600; color:#fff; }*/
+
+/*Menu Principal*/
+#header #headerContenido #headerDerecha #nav #menuPrincipal { float:left; padding-right:10px; height:32px; background:url(../images/menu-bg.png) repeat-x #00a1c7; }
+ul#jsmenu { margin:0 0 0 5px; padding:0; height:32px; font:12px "Lucida Sans", Arial, Helvetica, sans-serif; z-index:999999;}
+ul#jsmenu li { float:left; list-style:none; }
+ul#jsmenu li a { display: block; /*background: #324143; padding: 5px 12px; margin-bottom:1px;*/ padding:10px 14px 8px 14px; text-decoration: none; border-right: 1px solid #80c1d3; /*width: 70px;*/ color: #fff; font-weight:bold; white-space: nowrap }
+/*#jsmenu li a:hover	{ background:#2f405c }*/
+ul#jsmenu li ul { margin:0; padding:0; position:absolute; visibility:hidden; border-top:1px solid #fff; z-index:999999;border:4px solid #fff;box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);}
+ul#jsmenu li ul li { float:none; display:inline; font-size:11px; }
+ul#jsmenu li ul li a {text-align:left; width:auto; /*margin:1px 0; padding:9px 14px;*/ background:#2a7fa1; font-weight:normal; color:#fff; }
+ul#jsmenu li ul li a:hover { background:#2f405c }
+ul#jsmenu li a.itemFinal { /*padding:6px 0 8px 14px !important;*/ border-right:0 !important; }
+ul#jsmenu li img { margin-left:10px; }
+
+/*----------------------------------------------------------------
+CUERPO*/
+#cuerpo { font:normal normal normal "Lucida Sans", Arial, Helvetica, sans-serif; margin:0 auto; margin-top:-4px; width:980px; text-align:left; /*background:url(../images/cuerpo-borde-superior.png) top left repeat-x #fff;*/ }
+#cuerpo #cuerpoBordeTop { height:5px; background:url(../images/cuerpo-borde-superior.png) repeat-x; }
+
+#footer #cabecera { width:100%; background: none repeat scroll 0% 0% rgb(255,255,255); }
+#cuerpo #cabeceraa {margin:0px auto; width:940px; padding:5px 0px 15px; }
+#cuerpo #cuerpoContenido { font:1.2em "Lucida Sans", Arial, Helvetica, sans-serif; font-weight:bold; overflow:hidden; background:#fff; display: table; margin-left: auto; margin-right: auto; width: 980px;}
+#cuerpo #cuerpoContenido #aside { float:left; margin:10px 0 0 0; width:255px; }
+#cuerpo #cuerpoContenido #contenido { float:left; width:724px; }
+
+/*Menú Lateral*/
+#cuerpo #cuerpoContenido #aside h1 { font: 11.33px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight:bold; color:#0092b7; }
+#cuerpo #cuerpoContenido #aside .menuActivo { color:#fc932d; }
+/*#cuerpo #cuerpoContenido #aside .flechaNaranja { list-style-image:url(../images/bullet-menu-flecha-1.png); }*/
+#cuerpo #cuerpoContenido #aside ul#menuLateral .titulo {color:#f59538; font: 12px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight:bold; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral .separador {list-style:none outside none; background-image:url(../images/lineadelmenuizquierdo.jpg);background-repeat:no-repeat; width:100%;height:5px; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral { width:255px; font:1.1em "Lucida Sans", Arial, Helvetica, sans-serif; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li { margin-top:15px; margin-bottom:0.5em; font-weight:bold; /*list-style-image:url(../images/bullet-menu-flecha-0.png);*/ }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li a { color:#2d2d2d; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li ul { margin-left:1.4em; font: 9.88px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight:bold;   font-weight:bold; letter-spacing:-0.5px; list-style-image:url(../images/bullet-menu-flecha.png); }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li ul { *margin-left:1.5em; *letter-spacing:-1px; *list-style-image:url(../images/bullet-menu-flecha-ie7.png); }/*para IE7*/
+#cuerpo #cuerpoContenido #aside ul#menuLateral li ul li { margin-top:0.5em; line-height:1.4; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li ul li a { color:#2d2d2d; }
+#cuerpo #cuerpoContenido #aside ul#menuLateral li ul li ul { list-style-image:url(../images/bullet-cuadrado.png); *list-style-image:url(../images/bullet-cuadrado-ie7.png); }
+
+/*Contenido*/
+/*ver home.css*/
+
+.pagination {list-style:none; margin:0px; padding:0px;}
+.pagination li{float:left; margin:3px; height: 17px;}
+.pagination li a{display:block; padding:3px 5px; color:#fff; background-color:#00a1c7; text-decoration:none; height: 11px;}
+.pagination li a.active {border:1px solid #000; color:#000; background-color:#fff;}
+.pagination li a.inactive {background-color:#eee; color:#777; border:1px solid #ccc;}
+
+/*----------------------------------------------------------------
+PIE*/
+#footer {width:100%; }
+#footer #footerContent { border-top:1px solid #b6b6b6; width:100%; background:#f0f0f0; }
+#footer #footerContent #footerEnlaces { margin:0 auto; padding:15px 10px; width:940px; text-align:center; }
+#footer #footerContent #footerEnlaces ul.seccionesPie { display:block; overflow:hidden; width:940px; font-size:1.2em; }
+#footer #footerContent #footerEnlaces ul.seccionesPie li { float:left; padding-left:13px; border-left:1px solid #adadad; width:210px; text-align:left; }
+#footer #footerContent #footerEnlaces ul.seccionesPie li.inicio { border-left:0; }
+#footer #footerContent #footerEnlaces ul.seccionesPie li h1 { margin-bottom:13px; font:14px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight:bold;  }
+#footer #footerContent #footerEnlaces ul.seccionesPie li ul { margin-left:13px; list-style-image:url(../images/bullet-footer2.png); color:#434343; }
+#footer #footerContent #footerEnlaces ul.seccionesPie li ul li { padding:0; border:0; /*quitar estilos listas nivel superior*/ margin-bottom:8px; }
+#footer #footerContent #footerEnlaces a { color:#434343; }
+#footer #footerContent #footerEnlaces a:hover { text-decoration:underline; }
+#footer #footerContent #footerEnlaces .footerSocial { display:block; overflow:hidden; margin-bottom:7px; width:210px; height:25px; }
+#footer #footerContent #footerEnlaces .footerSocial .footerSocialIcono { float:left; margin-right:10px; width:26px; }
+#footer #footerContent #footerEnlaces .footerSocial .footerSocialNombre { float:left; padding-top:3px; }
+#footer #footerBg { width:100%; height:14px; background:url(../images/footer-bg.png) repeat-x; }
+#footer #footerFinal #footerEnlacesFinal { margin:0px auto;width: 940px; padding: 25px 0 25px 0;}
+#footer #footerFinal { width:100%; background: none repeat scroll 0% 0% rgb(255,255,255); }
+#footer #footerFinal #footerEnlacesFinal .footerLogosEstado { margin:0 auto; width:480px; text-align:center; }
+#footer #footerFinal #footerEnlacesFinal .footerLogosInformacion {width:980px; text-align:center; margin:30px auto 50px; font-size:1.2em; }
+#footer #footerFinal #footerEnlacesFinal .footerLogosEstado ul { display:block; overflow:hidden; margin:15px 0 0 2px; *margin:15px 0 20px 100px; width:980px; }
+#footer #footerFinal #footerEnlacesFinal .footerLogosEstado ul li { float:left; padding:0 20px; }
+
+#tabs #PreguntasFrecuentes #ListaPreguntas .titulopregunta {
+	color: #0090cc; text-align: center;
+}
+#tabs #PreguntasFrecuentes #ListaPreguntas .cuerpopregunta {
+	text-align: justify;
+	font:11px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight: bold;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+#tabs #FormasUso .tituloformauso {
+	color: #0090cc; text-align: left;
+	padding-left: 40px;
+}
+#tabs #FormasUso .cuerpoformauso {
+	text-align: justify;
+	font:11px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight: bold;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+#tabs #TerminosUso .cuerpoterminouso {
+	text-align: justify;
+	font:11px "Lucida Sans", Arial, Helvetica, sans-serif; font-weight: bold;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+#tabs #VideoTutorial .video {
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.zoom{
+        /* Aumentamos la anchura y altura durante 2 segundos */
+        transition: width 2s, height 2s, transform 2s;
+        -moz-transition: width 2s, height 2s, -moz-transform 2s;
+        -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+        -o-transition: width 2s, height 2s,-o-transform 2s;
+    }
+.zoom:hover{
+        /* tranformamos el elemento al pasar el mouse por encima al doble de
+           su tamaño con scale(2). */
+        transform : scale(2);
+        -moz-transform : scale(2);      /* Firefox */
+        -webkit-transform : scale(2);   /* Chrome - Safari */
+        -o-transform : scale(2);        /* Opera */
+    }

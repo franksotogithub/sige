@@ -1,0 +1,20 @@
+, "children":[ { "data" :"ROOT" , 
+            "children":[ { "data" :" Mantenimiento" , 
+                         "children":[ { "data" :" _demo" , 
+                                        "children":[ { "data" :" demo.html" }, 
+                                                     { "data" :" zmei.html" }
+                                                   ] 
+                                }, 
+                                { "data" :" _docs" , 
+                                        "children":[ { "data" :" zmei.html" }, 
+                                                     { "data" :" New node" }
+                                                   ] 
+                                }
+                        ] 
+                        }, 
+                        { "data" :" D:" , 
+                                "children":[ { "data" :" Contabilidad" }] 
+                        }
+                ] 
+            }
+    ] 

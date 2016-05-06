@@ -1,0 +1,1213 @@
+##
+#MAPABASE INEI
+##
+MAP
+	NAME 'mapa_prueba'
+	STATUS ON
+	SIZE 700 500 
+	EXTENT -81.321193  -18.351596 -68.650840 -0.0382088 		
+	FONTSET "../fonts/fonts.fnt"
+	SYMBOLSET "../symbols/symbset.sym"
+	IMAGECOLOR 255 255 255
+	WEB		
+		#IMAGEPATH "/var/www/html/SIG-NEGOCIOS/map/"			
+		IMAGEURL "map/"
+		
+		METADATA
+			wms_title "Mapas Tematicos"
+			wms_abstract "Capas"			
+		END
+	END
+	PROJECTION	  
+	  	"proj=longlat"
+		"ellps=WGS84"
+		"datum=WGS84"
+		"no_defs"
+	END
+	UNITS dd
+        
+	OUTPUTFORMAT
+            NAME 'AGG_PNG'
+            DRIVER AGG/PNG
+            IMAGEMODE RGB
+            FORMATOPTION "QUANTIZE_FORCE=ON"
+            FORMATOPTION "QUANTIZE_DITHER=OFF"
+            FORMATOPTION "QUANTIZE_COLORS=256"
+        END
+
+        OUTPUTFORMAT
+          NAME 'AGG_JPEG'
+          DRIVER AGG/JPEG
+          IMAGEMODE RGB
+          FORMATOPTION "QUALITY=100"
+        END
+	#####################
+	QUERYMAP
+	  SIZE 200 200
+	  STATUS ON
+	  STYLE NORMAL
+	  COLOR 255 0 0
+	End	
+	#####################
+	REFERENCE
+		 STATUS ON
+		 IMAGE "../../images/ubicacion.png"
+		 SIZE 120 120
+		 EXTENT -77.3500000000001 -12.3070000000000 -76.3800100000000 -11.9737000000000
+		 COLOR -1 -1 -1
+		 OUTLINECOLOR 255 0 0
+	END  #REFERENCE
+	#####################
+	LEGEND
+		STATUS ON
+		KEYSIZE 25 25		
+		LABEL
+			COLOR 0 0 0
+			TYPE TRUETYPE
+			FONT arial
+			SIZE 12			
+		END # ENDE LABEL
+	END   #LEGEND
+	#####################
+	SCALEBAR
+		STATUS ON
+		STYLE 1
+		INTERVALS 4
+		IMAGECOLOR  255 255 255
+		LABEL
+			COLOR 0 0 0
+		   	SIZE SMALL		
+		END	#ENDE LABEL
+		SIZE 200 3
+		OUTLINECOLOR 0 0 0
+		COLOR  0 0 0
+		BACKGROUNDCOLOR  255 255 255
+		UNITS METERS
+	END   #SCALEBAR
+	#####################
+	
+#########################################################
+#  INICIANDO CAPAS                                      #
+#########################################################
+LAYER
+        NAME 'global_raster'
+        TYPE RASTER
+        STATUS ON
+        DATA "../images/peru_tif11.bmp"
+        MINSCALE 1000000
+	METADATA
+		WMS_SRS 'EPSG:4326'
+		WMS_TITLE 'Departamentos'		
+	END
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+    END
+    
+    ###################################
+    LAYER
+	NAME 'oceano'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from oceano AS oceano USING UNIQUE gid using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Oceano'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASS
+		MINSCALE 22450
+		MAXSCALE 1001000
+		NAME 'pacifico'
+                STYLE
+                        COLOR 223 234 255
+                END
+	  	STYLE
+			SYMBOL limite	   		
+	   		OUTLINECOLOR 223 223 223
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+
+###################################
+LAYER
+	NAME 'dptos'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from dpto AS dpto USING UNIQUE ccdd using SRID=4326"
+ 	#FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')"	
+	
+   	STATUS on
+ 	TRANSPARENCY 70
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Departamentos'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASSITEM 'dpto_nombre'	
+        LABELITEM 'dpto_nombre'
+        
+	CLASS
+		NAME 'Dptos'
+		EXPRESSION /./
+		MINSCALE 75000
+		STYLE
+			COLOR 255 254 225
+		END
+	  	STYLE
+			#SYMBOL limite			
+	   		OUTLINECOLOR 255 216 56
+			WIDTH 2
+	  	END #STYLE
+                LABEL
+			COLOR 65 65 65
+			SIZE 5
+			FONT Arialb
+                        FORCE TRUE
+                        PARTIALS false
+                        #POSITION LI
+			TYPE truetype			
+		END #label
+	END #CLASS
+ 
+END #LAYER
+#####################
+LAYER
+	NAME 'provincia'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from prov AS provincia USING UNIQUE ccdd using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Provincias'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASS
+		MINSCALE 22450
+		MAXSCALE 1001000
+		NAME 'Provincias'	  	
+                STYLE
+                        COLOR 242 239 233
+                END
+	  	STYLE
+			SYMBOL limite	   		
+	   		OUTLINECOLOR 112 112 112
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+#####################
+LAYER
+	NAME 'ciudades'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from ciudad AS ciudad USING UNIQUE ccdd using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 70
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Ciudades del Peru'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS
+		MINSCALE 175000
+		MAXSCALE 1001000
+		NAME 'Ciudades'	 
+	  	STYLE	   			   		
+	   		COLOR 242 239 233
+	   		OUTLINECOLOR 212 212 112
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#####################
+LAYER
+	NAME 'distrito'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"		
+	DATA "geom from dist AS dist USING UNIQUE ubigeo using SRID=4326"
+ 	#FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')" 
+	
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Distritos'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	LABELITEM 'dist_nombre'
+	CLASS
+		MINSCALE 175000
+		MAXSCALE 226000
+		MINSCALEDENOM  22450
+		MAXSCALEDENOM  200000
+		NAME 'Distrito'
+                STYLE	   			   		
+	   		COLOR -1 -1 -1	   		
+	  	END #STYLE
+	  	STYLE
+			SYMBOL limite	   		
+	   		OUTLINECOLOR 0 0 0 
+			WIDTH 2
+	  	END #STYLE 
+		LABEL
+				COLOR 0 0 102
+				SIZE 8
+				FONT Arialb
+				TYPE truetype
+				#ANGLE auto
+				POSITION cc
+				PARTIALS false
+				MINDISTANCE 300		# evita etiquetas duplicadas
+				OFFSET -5 -5
+		END #label
+	END #CLASS
+ 
+END #LAYER
+
+#####################
+LAYER
+	NAME 'poligono_urbano'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"		
+	DATA "geom from nnuu AS poligono_urbano USING UNIQUE ccdd using SRID=4326"
+ 	#FILTER "GeometryType(geom) IN ('POLYGON','MULTIPOLYGON')" 
+	
+ 	STATUS on
+ 	TRANSPARENCY 80
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Poligonos Urbanos'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	#LABELITEM 'nnuu_nombre'
+	CLASS
+		MINSCALE 22450
+		MAXSCALE 175000		
+		NAME 'PoligonoUrbano' 		 
+	  	STYLE
+			SYMBOL limite2	 
+	   		#COLOR 0 0 0
+	   		OUTLINECOLOR 255 0 0 
+	  	END #STYLE 		
+	END #CLASS
+ 
+END #LAYER
+
+#####################################
+
+LAYER
+	NAME 'manzana'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from manzana AS manzanas USING UNIQUE id_manzana using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Manzanas'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS		
+		NAME 'manzanas'
+	 	MAXSCALE 22450
+	  	STYLE	   			   		
+	   		COLOR 240 237 229
+	   		OUTLINECOLOR 223 217 208
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+##########################################
+LAYER
+	NAME 'area_verde'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from area_verde AS area_verde USING UNIQUE id_area_verde using SRID=4326"
+		
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Area Verde'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASS		
+		NAME 'area verde1'
+	 	MAXSCALE 22450
+	  	STYLE			
+	   		COLOR 202 223 170
+	   		OUTLINECOLOR 202 223 170
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+######################################################################### 
+LAYER
+	NAME 'estratos_manzana'
+	TYPE polygon
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from manzana AS manzanas USING UNIQUE id_manzana using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Manzanas'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	CLASSITEM 'id_nse'
+	CLASS
+  		NAME 'SIM CLASIFICAR'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '0') 
+  		STYLE
+   			COLOR -1 -1 -1
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	
+	CLASS
+  		NAME 'BAJO'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '1') 
+  		STYLE
+   			COLOR 230 102 57        
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	 
+	
+	
+	CLASS
+  		NAME 'MEDIO BAJO'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '2') 
+  		STYLE
+   			COLOR 181 126 30        
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	
+	 
+	CLASS
+  		NAME 'MEDIO'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '3') 
+  		STYLE
+   			COLOR 251 191 13      
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	
+	
+	CLASS
+  		NAME 'MEDIA ALTO'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '4') 
+  		STYLE
+   			COLOR 128 177 211    #252 240 189 
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	 
+	
+	CLASS
+  		NAME 'ALTO'
+		MAXSCALE 22550
+  		EXPRESSION ('[id_nse]' eq '5') 
+  		STYLE
+   			COLOR 179 125 177
+   			OUTLINECOLOR 178 178 178			
+  		END #STYLE  
+	END #CLASS	 
+END #LAYER
+#########################################################
+########################
+#########################################################
+########################
+LAYER
+		NAME 'poblacion'
+		TYPE polygon
+		CONNECTIONTYPE postgis
+ 		CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+		DATA 'geom from datomxpob_mz AS giros USING UNIQUE id_dato using SRID=4326'
+	
+   		STATUS on
+ 		TRANSPARENCY 100
+ 		TOLERANCE 7
+ 		TOLERANCEUNITS pixels 	
+	
+ 		METADATA
+	  		WMS_SRS  'epsg:4326'
+	  	WMS_TITLE 'Giros'	  
+ 		END 
+ 
+		PROJECTION
+			'init=epsg:4326'
+		END
+		
+		CLASSITEM 'totpob'
+		CLASS
+		  	NAME '1 - 100'
+		  	EXPRESSION ([totpob]>=1 AND [totpob]<=100)				  	
+			MAXSCALE 22550			
+			STYLE
+		   		COLOR 254 184 189
+   				OUTLINECOLOR 178 178 178
+				WIDTH 1
+		  	END #STYLE			
+		 END #CLASS
+ 
+		 CLASS
+		 	NAME '101 - 200'
+		  	EXPRESSION ([totpob]>=101 AND [totpob]<=200)
+			MAXSCALE 22550
+		 	STYLE
+		   		COLOR 251 210 243    
+   				OUTLINECOLOR 178 178 178
+				WIDTH 1
+		  	END #STYLE				
+		 END #CLASS
+		 
+		 CLASS
+		  	NAME '201 - 500'
+		  	EXPRESSION ([totpob]>=201 AND [totpob]<=500)
+			MAXSCALE 22550
+		 	STYLE
+		   		COLOR 192 197 253
+   				OUTLINECOLOR 178 178 178
+				WIDTH 1
+		  	END #STYLE				
+		 END #CLASS
+		 
+		 CLASS
+		  	NAME '500 a mas'
+		  	EXPRESSION ([totpob] > 500)
+			MAXSCALE 22550
+		 	STYLE
+		   		COLOR 183 253 249
+   				OUTLINECOLOR 178 178 178
+				WIDTH 1
+		  	END #STYLE				
+		 END #CLASS
+END #END LAYER 
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+LAYER 
+    NAME        'areainfluencia'
+    STATUS       ON
+    TRANSPARENCY 60
+    
+    TYPE         POLYGON
+    
+                PROJECTION
+                    'init=epsg:4326'
+                END
+    CLASS
+        NAME 'Area de Influencia'
+ 	MAXSCALE 25000
+	STYLE	   			   		
+		COLOR 153 153 153		
+  	END #STYLE 
+  	STYLE	   			   		
+		OUTLINECOLOR 0 255 102
+		WIDTH 2 
+  	END #STYLE 
+    END
+END 
+#########################################################
+##########
+LAYER
+	NAME 'si_clinica'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	
+	CLASS
+		NAME 'GRIFO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'CLINICA')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL siclinica1
+  			SIZE 10
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+			OFFSET -12 0
+	  	END #STYLE
+		STYLE
+	   		SYMBOL siclinica2
+  			SIZE 15
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+	  	END #STYLE
+		STYLE
+	   		SYMBOL siclinica3
+  			SIZE 17
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+#########################################################
+LAYER
+	NAME 'si_bombero'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'id_tipo_lugarint'
+	
+	CLASS
+		NAME 'BOMBERO'
+	  	EXPRESSION ('[id_tipo_lugarint]' eq '12')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL sibombero
+	   		SIZE 22
+			COLOR 255 0 0
+	   		OUTLINECOLOR 0 0 0
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+############
+
+LAYER
+	NAME 'si_correo'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	CLASS
+		NAME 'CORREO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'CORREO')
+	 	MAXSCALE 22550
+	
+		STYLE
+	   		SYMBOL sicorreo
+	   		SIZE 16
+	   		COLOR 230 230 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE
+	END  #CLASS
+ 
+END #LAYER
+
+#########################################################
+
+
+LAYER
+	NAME 'si_grifo'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	
+	CLASS
+		NAME 'GRIFO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'GRIFO')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL simb_grifo3
+	   		SIZE 11
+	   		COLOR 25 90 164
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS
+ 
+END #LAYER
+
+
+#############
+LAYER
+	NAME 'si_hospital'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	
+	CLASS
+		NAME 'HOSPITAL'
+	  	EXPRESSION ('[lugar_nombre]' eq 'HOSPITAL')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL sihospital1
+  			SIZE 10
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+			OFFSET -12 0
+	  	END #STYLE
+		STYLE
+	   		SYMBOL sihospital2
+  			SIZE 15
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+	  	END #STYLE
+		STYLE
+	   		SYMBOL sihospital3
+  			SIZE 17
+   			COLOR 255 0 0
+   			OUTLINECOLOR -1 -1 -1
+	  	END #STYLE
+	END #CLASS
+ 
+END #LAYER
+##################
+LAYER
+	NAME 'si_iglesia'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+	
+	CLASS
+		NAME 'IGLESIA'
+	  	EXPRESSION ('[lugar_nombre]' eq 'IGLESIA CATOLICA')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL siiglesia
+	   		SIZE 18
+	   		COLOR 0 0 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE  
+	END #CLASS
+ 
+END #LAYER
+###############
+LAYER
+	NAME 'si_mercado'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'	
+	CLASS
+		NAME 'MERCADO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'MERCADO')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL simercado1
+  			SIZE 10
+   			COLOR 169 0 230
+   			OUTLINECOLOR -1 -1 -1
+			OFFSET -12 0
+	  	END #STYLE
+		STYLE
+	   		SYMBOL simercado2
+  			SIZE 10
+   			COLOR 169 0 230
+   			OUTLINECOLOR -1 -1 -1
+	  	END #STYLE
+	END #CLASS 
+END #LAYER
+##########################
+LAYER
+	NAME 'si_municipalidad'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'	
+	CLASS
+		NAME 'MERCADO'
+	  	EXPRESSION ('[lugar_nombre]' eq 'MUNICIPALIDAD')
+	 	MAXSCALE 22550
+	  	STYLE
+	   		SYMBOL simuni
+	   		SIZE 20
+	   		COLOR 0 76 166
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS 
+END #LAYER
+#########################
+LAYER
+	NAME 'si_pnp'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'
+        #LABELITEM 'lugar_nombre'	
+	CLASS
+		NAME 'PNP'
+	  	EXPRESSION ('[lugar_nombre]' eq 'POLICIA NACIONAL DEL PERU, COMISARIA')
+	 	MAXSCALE 22550
+		STYLE
+	   		SYMBOL sipnp1
+	   		SIZE 10
+	   		COLOR 38 115 0
+	   		OUTLINECOLOR -1 -1 -1
+			OFFSET -9 0
+	  	END #STYLE 
+		STYLE
+	   		SYMBOL sipnp2
+	   		SIZE 10
+	   		COLOR 38 115 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	  	STYLE
+	   		SYMBOL sipnp1
+	   		SIZE 10
+	   		COLOR 38 115 0
+	   		OUTLINECOLOR -1 -1 -1
+			OFFSET 9 0
+	  	END #STYLE 	
+	#LABEL
+				#COLOR 0 0 225
+				#SIZE 7
+				#FONT Vera
+				#TYPE truetype
+				#ANGLE auto
+				#POSITION cc
+				#PARTIALS false
+				#MINDISTANCE 300		# evita etiquetas duplicadas
+				
+		#END #label                 
+
+ 
+	END #CLASS 
+END #LAYER
+##################
+LAYER
+	NAME 'si_universidad'
+	TYPE Point
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from lugar_de_interes AS sitio USING UNIQUE id_lugarint using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Sitios de Interes'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+	
+	CLASSITEM 'lugar_nombre'	
+	CLASS
+		NAME 'UNIVERSIDAD'
+	  	EXPRESSION ('[lugar_nombre]' eq 'UNIVERSIDAD')
+	 	MAXSCALE 22550
+	  	
+	  	STYLE
+	   		SYMBOL siuni
+	   		SIZE 20
+			#COLOR 230 230 0
+	   		OUTLINECOLOR -1 -1 -1
+	  	END #STYLE 
+	END #CLASS 
+END #LAYER
+#########################################################
+
+#########################################################
+LAYER
+	NAME 'via_tramos'
+	TYPE Line
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from via_tramo AS vias USING UNIQUE id_via_tramo using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Vias de la Ciudad'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASSITEM "cod_tipovia"
+	LABELITEM 'nombre_via'
+	
+	CLASS
+		NAME "Avenida"
+		MAXSCALE 22450
+		EXPRESSION ("[cod_tipovia]" eq "01")			 
+	  	STYLE
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 255 225 104
+			WIDTH 5
+	  	END #STYLE 
+		#MAXSCALEDENOM 9050
+		LABEL
+				OUTLINECOLOR 255 255 255
+				OUTLINEWIDTH 1
+				#COLOR 139 134 121
+				COLOR 61 56 52
+				SIZE 8
+				FONT arial
+				TYPE truetype
+				ANGLE FOLLOW 
+				POSITION auto
+				PARTIALS false
+				MINDISTANCE 300		# evita etiquetas duplicadas
+				OFFSET -5 -5
+		END #label
+	END #CLASS	
+	
+	CLASS
+		MAXSCALE 9050
+		NAME "Calle"
+		EXPRESSION  ("[cod_tipovia]" ne "01")		 
+	  	STYLE
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 240 240 40
+			#WIDTH 1
+	  	END #STYLE 
+		MAXSCALEDENOM 9000
+		LABEL				
+				OUTLINECOLOR 255 255 250
+#				COLOR 133 128 114
+				COLOR 61 56 52
+				SIZE 6
+				FONT arial
+				TYPE truetype
+				ANGLE FOLLOW
+				POSITION auto
+				PARTIALS false
+				MINDISTANCE 300		# evita etiquetas duplicadas
+				OFFSET -5 -5
+		 END #label
+	END #CLASS		
+ 	
+END #LAYER
+
+######################################################################### 
+#########################################################
+LAYER
+	NAME 'via_tramos_2'
+	TYPE Line
+	CONNECTIONTYPE postgis
+ 
+	CONNECTION "host=192.168.201.76 port=5432 dbname=inei_bdcartodifusion  user=us_inei_bdcartodifusion password=inei2511"
+	DATA "geom from via_tramo AS vias USING UNIQUE id_via_tramo using SRID=4326"
+ 
+ 	STATUS on
+ 	TRANSPARENCY 100
+ 	TOLERANCE 7
+ 	TOLERANCEUNITS pixels
+ 
+ 	METADATA
+	  WMS_SRS  'epsg:4326'
+	  WMS_TITLE 'Vias de la Ciudad'
+	  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+ 	END #METADATA
+ 
+	PROJECTION
+		'init=epsg:4326'
+	END
+
+	CLASSITEM "cod_tipovia"
+	
+	CLASS
+                MINSCALE 22451
+		NAME 'Av-Car'		
+		EXPRESSION ('[cod_tipovia]' eq '01')
+                
+                STYLE                        
+	   		SYMBOL 'linea'			
+	   		OUTLINECOLOR 204 204 204
+			WIDTH 0.7
+                        OFFSET 0 1.5
+	  	END #STYLE
+                
+		STYLE                        
+	   		SYMBOL 'linea'			
+	   		OUTLINECOLOR 204 204 204
+			WIDTH 0.7
+			OFFSET 0 -1.1
+	  	END #STYLE
+                STYLE                        
+           		SYMBOL 'linea' #medio
+	   		OUTLINECOLOR 255 251 140
+			WIDTH 1.7
+	  	END
+	END #CLASS
+        CLASS
+                MINSCALE 10000
+		NAME 'Calles'
+		EXPRESSION  ('[cod_tipovia]' ne '01')		 
+	  	STYLE
+	   		COLOR -1 -1 -1
+	   		OUTLINECOLOR 204 204 204
+			WIDTH 0.4
+	  	END #STYLE 	
+	END #CLASS	
+END #LAYER
+
+
+ 
+END #End of Mapfile

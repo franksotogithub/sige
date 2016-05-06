@@ -1,0 +1,34 @@
+.w_compe{
+   /*background-color: #ff8800;*/
+   /*font-weight: bold;*/
+   cursor: pointer;
+}
+
+.chkClientes{
+   /*background-color: #ff8800;*/
+   /*font-weight: bold;*/
+   cursor: pointer;
+}
+.lestrato{
+    background-image: url(../images/Leyenda_estratos1.PNG);
+	background-repeat:no-repeat;
+}
+
+.lestratoPoblacion{
+    background-image: url(../images/Leyenda_estratos2.PNG);
+	background-repeat:no-repeat;
+}
+.layerfloat{
+    z-index:9999;
+    position:absolute;
+    width:100%;
+    /*border: #333 1px solid;*/
+    padding-top: 5px;
+    /*padding-left: 5px;*/
+}
+
+.toolbarmapa{
+    width:25px;
+    height:25px;
+    cursor:pointer
+}

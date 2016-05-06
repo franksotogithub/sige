@@ -1,0 +1,7 @@
+@charset "utf-8";
+/*ESTILO PARA EL BOTON "BTNVER"*/
+#btnver { width:64px; height:22px; background:url(../images/botonver.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnpres { width:120px; height:16px; background:url(../images/btnpres.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnretro { width:20px; height:24px; background:url(../images/btnretro.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnglosario { width:89px; height:18px; background:url(../images/botonglosario.jpg) no-repeat; border: 0; cursor: pointer;}
+#btnguia { width:134px; height:19px; background:url(../images/botonguiausuario.jpg) no-repeat; border: 0; cursor: pointer;}
