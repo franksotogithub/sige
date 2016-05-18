@@ -30,6 +30,7 @@ function crear_map_giro(id_giro,cont,perso,venta)
  
 }
 //crear mapa de poblacion
+
 function crear_map_pob(asexo,aedades,aestudio,apea)
 {
 
@@ -64,14 +65,44 @@ function crear_map_pob(asexo,aedades,aestudio,apea)
 
 
 
- $(document).ready(function() {
-	$("#create-mapa_inicio" ).click(function() {
-		iniciar_variable();   
+//$(document).ready(function() {
 
-		log_visita_insertar('12','Inicio');
-		zoomInicial();
-	});
- });
+
+////click en el boton para imprimir el mapa 
+    
+/*
+    $("#imprimir-mapa").click(function() {
+    
+
+        var element = $("#content_mapa"); // global variable
+        var getCanvas; 
+
+        html2canvas(element, {
+         onrendered: function (canvas) {
+
+                getCanvas = canvas;
+
+             },
+       
+         });
+
+    var imgageData = getCanvas.toDataURL("image/png",1.0);
+    // Now browser starts downloading it instead of just showing it
+    var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    $("#imprimir-mapa").attr("download", "your_pic_name.png").attr("href", newData);
+        
+    });
+
+
+*/
+
+//	$("#create-mapa_inicio" ).click(function() {
+//		iniciar_variable();   
+
+		//log_visita_insertar('12','Inicio');
+//		zoomInicial();
+//	});
+// });
 
 
 
@@ -157,6 +188,7 @@ function crear_map_pob(asexo,aedades,aestudio,apea)
                     
             });
  });
+
  
  function Obtener_chksi_cadena(){
             var cadena="";            

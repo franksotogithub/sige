@@ -1,10 +1,11 @@
-//begin
-//var url_servidormap= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/mapa_negocios_cp2.map";
 
-var url_servidormap_2= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//";
-//var url_servidormap_2= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/";
-var url_servidormap= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//mapa_negocios_cp.map";
-//var url_servidormap_2= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//Apache//htdocs//SIG-NEGOCIOS//map//";
+var url_servidormap= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/mapa_negocios_cp.map";
+var url_servidormap_2= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/";
+
+//var url_servidormap_2= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//";
+
+//var url_servidormap= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//mapa_negocios_cp.map";
+
 var myLayout;
 var mainMap = null;
 var proxy_prefix="./proxy.php?url=";

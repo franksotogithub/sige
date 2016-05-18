@@ -144,10 +144,10 @@ else
         mainMap.zoomTo(actzoom);
         activar_capas(opcionc);
     
-    //if(opcionc===5)
-        //    crear_leyenda_mzn_estab();
-      //  else
-       //     crear_leyenda_mapa();
+    if(opcionc===5)
+            crear_leyenda_mzn_estab();
+        else
+           crear_leyenda_mapa();
 
     } else {
         mainMap.zoomTo(actzoom)
@@ -760,6 +760,13 @@ function crear_mapa_js_giro(nombre_archivo, nom_giro) {
 }
 
 function crear_mapa_js_pob(nombre_archivo) {
+    
+var presentacion=$("#cboPresentacion").val();
+
+
+
+
+
     eliminar_capa("POBLACION");
     var url_map_giro = url_servidormap_2 + nombre_archivo;
     var layer_pob = new OpenLayers.Layer.WMS("POBLACION", url_map_giro, {
@@ -777,7 +784,32 @@ function crear_mapa_js_pob(nombre_archivo) {
 }
 
 function activar_capas(opcioncapa) {
+    
     var nombre = $('#txtCentroPoblado_id').val();
+    
+    //var presentacion=$('#cboPresentacion').val();
+
+    
+
+
+
+    var resumen = new OpenLayers.Layer.WMS("Resumen", url_servidormap, {
+        layers: 'dptos-resumen,distritos_actualizados',
+        format: 'image/gif',
+        //
+        transparent: true
+    }, {
+        
+        
+        //legend: 'HOLA',
+        isBaseLayer: false,
+        'buffer': 0,
+        singleTile: true,
+        showLegend: true
+    });
+
+
+
 
     var layer_dpto_2 = new OpenLayers.Layer.WMS("Departamentos2", url_servidormap, {
         layers: 'dptos-inicio',
@@ -941,6 +973,8 @@ function activar_capas(opcioncapa) {
     });
 
 
+
+
     if (temp_layer) {
         if (temp_layer.features) {
             vector_layer = temp_layer.clone()
@@ -962,17 +996,33 @@ function activar_capas(opcioncapa) {
 
 //alert(opcioncapa);
 
-    if(opcioncapa == 0){
+
+
+//if(presentacion=='1')
+//{
+/*
+        var allBaseLayers = [layer_raster, resumen];
+        mainMap.addLayers(allBaseLayers);
+        vector_layer.setVisibility(false);
+        temp_capa=-1;
+*/
+//}
+
+
+//else
+//{
+
+        if(opcioncapa == 0)
+        {
 
         var allBaseLayers = [layer_raster, layer_dpto_2];
         mainMap.addLayers(allBaseLayers);
         vector_layer.setVisibility(false);
         temp_capa=0;
-    }
+        }
 
 
- else {
-        if (opcioncapa == 1) {
+     else { if (opcioncapa == 1) {
         var allBaseLayers = [layer_raster, layer_dpto];
         mainMap.addLayers(allBaseLayers);
         vector_layer.setVisibility(false);
@@ -987,13 +1037,13 @@ function activar_capas(opcioncapa) {
             mainMap.addLayers(allBaseLayers);
             vector_layer.setVisibility(false);
             temp_capa=2;
-        } else if (opcioncapa == 3) {
+         } else if (opcioncapa == 3) {
             var allBaseLayers = [layer_dist, vector_punto];
             mainMap.addLayers(allBaseLayers);
             vector_layer.setVisibility(false);
             temp_capa=3;
 
-    } else if (opcioncapa == 4) {
+         } else if (opcioncapa == 4) {
             //var allBaseLayers = [layer_manzana, layer_estrato, vector_layer, layer_via, vector_punto,layer_redvial];
             var allBaseLayers = [layer_manzana, layer_dist, layer_via, vector_layer, vector_punto ];
             mainMap.addLayers(allBaseLayers);
@@ -1014,7 +1064,7 @@ function activar_capas(opcioncapa) {
             }
         }
         i = 1;
-        while (i < ncapas) {
+            while (i < ncapas) {
             nombrecapa = mainMap.layers[i].name.substr(0, 2);
             if ((nombrecapa == "si") || (nombrecapa == "gi")) {
                 mainMap.raiseLayer(mainMap.layers[i], (mainMap.getNumLayers() - 1));
@@ -1024,12 +1074,99 @@ function activar_capas(opcioncapa) {
                 i++
             }
         }
-        if (ind_pob != 0) {
+        if (ind_pob != 0) 
+        {
             mainMap.raiseLayer(mainMap.layers[ind_pob], 2)
+     
+
         }
+
+
     }
+
+
   }
+
+
+//}
+
+
+
 }
+
+
+function activar_capas_resumen(tipo) {
+    
+    //var nombre = $('#txtCentroPoblado_id').val();
+    
+    //var presentacion=$('#cboPresentacion').val();
+
+    var resumen_actualizados = new OpenLayers.Layer.WMS("ResumenActualizados", url_servidormap, {
+        //layers: 'dptos_limites_resumen,distritos_limites_resumen,distritos_actualizados',
+        layers: 'distritos_actualizados,dptos_resumen',
+        format: 'image/gif',
+        //
+        transparent: true
+    }, {
+        
+        
+        //legend: 'HOLA',
+        isBaseLayer: false,
+        'buffer': 0,
+        singleTile: true
+        //showLegend: true
+    });
+
+
+    var resumen_no_actualizados = new OpenLayers.Layer.WMS("ResumenNoActualizados", url_servidormap, {
+        layers: 'distritos_no_actualizados,dptos_resumen',
+        //layers: 'distritos_no_actualizados,distritos_limites_resumen,dptos_limites_resumen',
+        format: 'image/gif',
+        //
+        transparent: true
+    }, {
+        
+        isBaseLayer: false,
+        'buffer': 0,
+        singleTile: true
+        //showLegend: true
+    });
+    
+
+    var layer_raster = new OpenLayers.Layer.WMS("global_raster", url_servidormap, {
+        layers: 'global_raster',
+        format: 'image/jpeg',
+        nomagic: true
+    }, {
+        isBaseLayer: false,
+        'buffer': 0,
+        singleTile: true
+    });
+
+mainMap.zoomTo(0);
+if(tipo=='1')
+{
+        var allBaseLayers = [layer_raster, resumen_actualizados];
+        mainMap.addLayers(allBaseLayers);
+        temp_capa=-1;
+}
+
+
+else 
+
+{
+       var allBaseLayers = [layer_raster, resumen_no_actualizados];
+        mainMap.addLayers(allBaseLayers);
+        temp_capa=-1;
+
+
+}
+
+}
+
+
+
+
 
 function getEscala() {
     return mainMap.getScale()
@@ -1051,14 +1188,115 @@ function getmaxYExtend() {
     return mainMap.getExtent().top
 }
 
+
+
 function zoomInicial() {
     actzoom = 0;
     eliminar_map(0);
     mainMap.zoomToMaxExtent();
     limpiar_area_influencia();
     activar_capas(0);
-    document.getElementById("cboDepartamento").value = "00"
+    //var ley='';
+    
+
+/*Valores iniciales del formulario del resumen */
+
+//////////////////////////////////////////////*
 }
+
+
+
+
+function iniciar_variable()
+{
+
+   url_servidormap= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/mapa_negocios_cp.map";
+   url_servidormap_2= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/";
+
+
+    
+    //url_servidormap= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//mapa_negocios_cp.map";  
+    //url_servidormap_2= "http://localhost:8020/cgi-bin/mapserv.exe?map=c://ms4w//apps//local//data//";
+    
+    proxy_prefix="./proxy.php?url=";
+
+    //Iniciar autocomplete
+    varcom="";
+    ubigeo =""
+
+    //area influencia
+
+    bloque_id_manzana="" ;
+    bloque_puntos_influencia="";
+
+    //ubicacion
+
+    ubigeo="";
+    codciudad="";
+    flag_sm="";
+    //js mapa
+
+    imagen2="";
+    iColor[0]="";
+    iColor[1]="";
+    iColor[2]="";
+    iColor[3]="";
+
+    //inicializar combo ciudad
+        limpiar_ciudad();
+        $('#myForm input').removeAttr('checked');
+        //$('#myForm').hide();     
+        $("#select-resumen").hide();
+        $("#mapa-resumen").val('1');
+        $('#cboDepartamento').val("00");
+        $('#cboProvincia').children().remove();
+        $('#cboDistrito').children().remove();
+        
+      //  $("#leyenda_resumen").show();
+        $("#etiqueta1").show();
+        $("#etiqueta2").hide();
+        $("#etiqueta3").hide();
+
+   // $('#leyenda').empty();
+    $('#leyenda_resumen').show();
+    $('#leyenda').empty();
+    //$('#leyenda').hide();
+    //$('#leyenda_resumen').();
+    
+
+    var  ley='';
+
+
+
+    ley = ley + '<span id="titleyMercado" style="font-family:arial; font-size:11px; font-weight:bold; text-decoration:underline;  ">Leyenda </span>';
+    ley = ley + '<table>';
+    ley = ley + '<tr><td ><img src="images/rectangulo_rojo.png" /></td><td style="font-size: 10.5px" colspan=2 >  Areas con cartografia actualizada</td></tr>';
+    ley = ley + '<tr><td ><img src="images/rectangulo_blanco.png" /></td><td style="font-size: 10.5px" colspan=2 > Areas con cartografia no actualizada</td></tr>';    
+    ley = ley + '</table>';
+    
+
+
+
+
+    $("#etiqueta1").css({"bottom": "50px"});
+    $("#leyenda_resumen").html(ley);
+    
+        //$('#leyenda').children().remove();
+$('#tblResultados tbody').empty();
+        //$('#tblResultados tbody').children('tr').remove();
+       // $("#informacion-mapa-resumen").hide();
+       //  $('#leyenda_resumen').show();
+
+}
+
+
+
+
+
+
+
+
+
 
 function eliminar_map(opcioncapa) {
     var nombrecapa = "";
@@ -1115,7 +1353,46 @@ function limpiar_area_influencia() {
         temp_layer = vector_layer2[0].clone();
         bloque_puntos_influencia = ""
     }
-}
-;
+};
+
+
+
+$('#informacion-mapa-resumen').click(function(){
+
+
+tabla_info('00','Nacional');
+           /* $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                url: 'index.php//buscar_area_influencia_nacional',
+                
+                success: function (result) {
+                    //console.log(result);
+
+                    if (result == "") {
+                        jAlert('warning', 'Disculpe por el momento no existe informacion en el area seleccionada', 'Mensaje del Sistema');
+                        $(this).dialog("close");
+                        return false
+                    }
+
+                       
+                    tabla_info('00','Nacional');
+                    
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+
+*/
+});
+
+/*
+$('#west-closer').click(function (){
+
+    alert('Hola')
+});
+*/
 
 jsbegin = "begin";

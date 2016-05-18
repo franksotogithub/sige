@@ -415,18 +415,32 @@
 //comienza mapa
 
 myLayout = $('body').layout({defaults: {
-    size:"auto",contentIgnoreSelector:"span",togglerLength_open:35,	togglerLength_closed:35,
+    size:"auto",
+    contentIgnoreSelector:"span",
+    togglerLength_open:35,	
+    togglerLength_closed:35,
     hideTogglerOnSlide:		true,
     togglerTip_open:"Close This Pane",
     togglerTip_closed:	"Open This Pane",
     resizerTip:	"Resize This Pane"},
     north: {spacing_open:	1,
     togglerLength_open:	0,
-    togglerLength_closed:-1,resizable: false,
-    slidable:	false,	fxName:	"none"}, 	west: {size:300	,
-    spacing_closed:	21,	togglerLength_closed:	21,	togglerAlign_closed:"top",
-    togglerLength_open:0,	togglerTip_open:"Close West Pane",	togglerTip_closed:	"Open West Pane",
-    resizerTip_open:"Resize West Pane",	slideTrigger_open:"click" ,	initClosed:	false,	fxName:	"drop",	fxSpeed:"normal",
+    togglerLength_closed:-1,
+    resizable: false,
+    slidable:	false,	
+    fxName:	"none"}, 	
+    west: {size:300	,
+    spacing_closed:	21,	
+    togglerLength_closed:	21,	
+    togglerAlign_closed:"top",
+    togglerLength_open:0,	
+    togglerTip_open:"Close West Pane",	
+    togglerTip_closed:	"Open West Pane",
+    resizerTip_open:"Resize West Pane",	
+    slideTrigger_open:"click" ,	
+    initClosed:	false,	
+    fxName:	"drop",	
+    fxSpeed:"normal",
     fxSettings:	{easing: ""}}
 ,	east: {size:250	,
 spacing_closed:21,	togglerLength_closed:21,togglerAlign_closed:"top",
@@ -435,17 +449,50 @@ togglerTip_closed:	"Open East Pane",	resizerTip_open:		"Resize East Pane",	slide
 initClosed:			true,	fxName:"drop",	fxSpeed:"normal",fxSettings:{easing: ""}}	,
 south: {maxSize:100,	minSize:0,spacing_closed:0,	slidable:false	,	initClosed:			false,
 togglerLength_open:	0},	center: {minWidth:200,	minHeight:200}});
+
 myLayout.addCloseBtn("#west-closer", "west");
+
+
 
 pic1= new Image();pic1.src="images/go-lt-on.gif";pic2= new Image();pic2.src="images/go-rt-on.gif";pic3 = new Image();pic3.src="images/spinner.gif";
 $('#buttonmeasure').button({text: false,icons: {primary: 'measure-icon'}});$("#buttonpanzoom").button({text: false,icons: {primary: 'zoompaninfo-icon'}});mainMap = LoadMap('mainmap'); //retardo();
 $(".mapfooter").mapwidget(mainMap, 'mouseposition', {labelLatitude: " breedte:", labelLongitude: " lengte: ", latLonSeparator: "", decimalPlaces: 4});$("#scale-info").mapwidget(mainMap, 'scalebar', {labelScale: ""} );mapPos = $(mainMap.div).offset();$featureDialog = $('<div></div').dialog ({autoOpen: false, title: 'Informatie', position: [mapPos.left + 5, mapPos.top + 5]});mainMap.viewPortDiv.oncontextmenu = OpenLayers.Function.False;var history_counter = 0;
-var going_back = false;$.history.init(function(hash) {if (hash == "") {going_back = true;going_back = false;} else {hashcounter = hash.substring(0, hash.indexOf(":"));if (hashcounter != history_counter) {history_counter = hashcounter;hash = hash.substring(hash.indexOf(":") + 1);bounds = new OpenLayers.Bounds();bounds.left = parseFloat(hash.substring(0, hash.indexOf(',')));hash = hash.substring(hash.indexOf(',') + 1);bounds.bottom = parseFloat(hash.substring(0, hash.indexOf(',')));hash = hash.substring(hash.indexOf(',') + 1);bounds.right = parseFloat(hash.substring(0, hash.indexOf(',')));hash = hash.substring(hash.indexOf(',') + 1);bounds.top = parseFloat(hash);going_back = true;mainMap.zoomToExtent (bounds);going_back = false;}}});
+
+var going_back = false;
+
+$.history.init(function(hash) 
+{if (hash == "") {going_back = true;going_back = false;} 
+else {hashcounter = hash.substring(0, hash.indexOf(":"));
+if (hashcounter != history_counter) 
+    {
+        history_counter = hashcounter;hash = hash.substring(hash.indexOf(":") + 1);
+bounds = new OpenLayers.Bounds();
+bounds.left = parseFloat(hash.substring(0, hash.indexOf(',')));
+hash = hash.substring(hash.indexOf(',') + 1);
+bounds.bottom = parseFloat(hash.substring(0, hash.indexOf(',')));
+hash = hash.substring(hash.indexOf(',') + 1);
+bounds.right = parseFloat(hash.substring(0, hash.indexOf(',')));
+hash = hash.substring(hash.indexOf(',') + 1);
+bounds.top = parseFloat(hash);
+going_back = true;
+mainMap.zoomToExtent (bounds);
+going_back = false;
+
+}}});
+
+
 mainMap.events.register("dblclick", mainMap, function(e) {
-var lonlat = mainMap.getLonLatFromViewPortPx(e.xy);lon=lonlat.lon;lat=lonlat.lat;
+
+var lonlat = mainMap.getLonLatFromViewPortPx(e.xy);
+lon=lonlat.lon;
+lat=lonlat.lat;
+alert('longitud:'+lon + ' latitud:'+lat);
 document.getElementById("txtPuntox").value=lon;
 document.getElementById("txtPuntoy").value=lat;
-poner_punto(lon,lat);
+
+
+
+//poner_punto(lon,lat);
 
 //------------------------------------------------
         //ir directo a tabla informativa
@@ -818,9 +865,17 @@ function  tabla_info(ubigeo,nombubigeo){
             $("#tblArea_informacion tr").remove()
         }
     });
-    cargar_grilla1(ubigeo);   
+
+    if(ubigeo=='00')
+        cargar_grilla_nacional();   
+    else 
+        cargar_grilla1(ubigeo);   
     
-    if(ubigeo.length==2)
+
+    if(ubigeo=='00')
+    {vTema = " .:: Resumen " + nombubigeo + " ::. ";}    
+
+    else if(ubigeo.length==2)
     {vTema = " .:: Departamento " + nombubigeo + " ::. ";}
 
     else if(ubigeo.length==4)
@@ -958,12 +1013,14 @@ function cargar_grilla1(ubi){
 
     //alert("temp_capa");
     $("#tblArea_informacion").jqGrid('GridUnload');
-    data = {"names": ["", ""]};
+    data = {"names": ["Descripci&oacute;n", "Total"] };
 
     
     var url_ubi='';
 
-    if(ubi.length==2)
+    if(ubi=='00')
+    url_ubi='index.php/area_influencia/consultar_reporte_nacional';    
+    else if(ubi.length==2)
     url_ubi='index.php/area_influencia/consultar_reporte_dpto';
     else if (ubi.length==4)    
         url_ubi='index.php/area_influencia/consultar_reporte_prov';
@@ -987,6 +1044,43 @@ function cargar_grilla1(ubi){
         rowList: [10, 20, 30],
         //height: $("#dialog-form_area_informacion").height() - 30,
     height: 350,
+        viewrecords: true,
+        caption: ""
+    });
+}
+
+
+function cargar_grilla_nacional(){
+   //alert(temp_capa);
+
+    //alert("temp_capa");
+    $("#tblArea_informacion").jqGrid('GridUnload');
+    data = {"names": ["Descripci&oacute;n", "Total","Actualizados","Porcentaje"] };
+
+    
+    var url_ubi='';
+
+  
+    url_ubi='index.php/area_influencia/consultar_reporte_nacional';    
+ 
+
+    jQuery("#tblArea_informacion").jqGrid({
+        url: url_ubi,
+        datatype: "json",
+        mtype: "GET",
+     
+        colNames: data.names,
+        colModel: [
+            {name: 'descripcion', index: 'descripcion', width: 300, sortable: false},
+            {name: 'total', index: 'vnac', width: 90, sortable: false, formatter: nullFormatter},
+             {name: 'actualizado', index: 'vnac', width: 120, sortable: false, formatter: nullFormatter},
+             {name: 'porcentaje', index: 'vnac', width: 100, sortable: false, formatter: nullFormatter}
+        ],
+        rowNum: 300,
+        rowList: [10, 20, 30],
+        //height: $("#dialog-form_area_informacion").height() - 30,
+    height: 350,
+   
         viewrecords: true,
         caption: ""
     });

@@ -29,15 +29,23 @@ if ($this->session->userdata('logged_in')===TRUE)
 
 <link rel="stylesheet" type="text/css" href="css/principal.css" />
 
-<script type="text/javascript" src="js/jquery.global.js"></script>
+
 
 <!--<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>-->
 <script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+
 <!--<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>-->
+
 <script type="text/javascript" src="js/jquery/jquery-ui-1.8.2.custom.min.js"></script>
+<!--<script type="text/javascript" src="js/html2canvas.js"></script>-->
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://layout.jquery-dev.com/lib/js/jquery.layout-latest.js"></script>-->
+
 <!--<script type="text/javascript" src="js/jquery.elevatezoom.js"></script>-->
 <!--<script type="text/javascript" src="js/jquery.zoom.js"></script>-->
 
+<script type="text/javascript" src="js/jquery.global.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.3&sensor=false"></script>
 <script type="text/javascript" src="js/OpenLayers.js"></script>
 
@@ -128,7 +136,7 @@ if ($this->session->userdata('logged_in')===TRUE)
     	</div>-->
 	</div>
 <!--Panel Izquierdo-->
-<div class="ui-layout-west"><span id="west-closer"></span>
+<div class="ui-layout-west"><span id="west-closer"  ></span>
  <div class="header">&Aacute;rea de selecci&oacute;n</div>
     <div class="ui-layout-content"> <!--class="ui-layout-content layercatalogue"-->
 
@@ -138,34 +146,63 @@ if ($this->session->userdata('logged_in')===TRUE)
 	    <div align="center"  style="height: 300px">
 
 		  <table border=0>
-		    <tr>
-			<td>Departamento:</td>
+		  <!--  <tr>
+
+      
+      <td>Presentacion:</td>
+      <td>
+          <select id="cboPresentacion" name="" style="width:160px" >
+          <option value="1">Resumido </option>
+          <option value="2">Detallado </option>
+          </select>
+      </td>
+      
+      </tr>
+
+
+      <tr  id="filaTipoDistritos">
+      <td>Tipo:</td>
+      <td>
+          <select id="cboTipoDistritos" name="" style="width:160px" >
+          <option value="1"> Actualizados</option>
+          <option value="2"> No Actualizados</option>
+          </select>
+      </td>
+      </tr>
+-->
+
+      <tr  id="filaDepartamento">
+      <td>Departamento:</td>
 			<td>
 			    <select id="cboDepartamento" name="" style="width:160px" >
 			    </select>
 			</td>
-		    </tr>
-		    <tr>
+		  </tr>
+		  <tr id="filaProvincia">
 			<td>Provincias:</td>
 			<td>
 			    <select id="cboProvincia"  style="width:160px;" >
 			    </select>
 			</td>
-		    </tr>
-                    <tr>
+		  </tr>
+      
+      <tr id="filaDistrito">
 			<td>Distritos:</td>
 			<td>
 			    <select id="cboDistrito"  style="width:160px;" >
 			    </select>
 			</td>
-		    </tr>
-                    <tr>
+		  </tr>
+
+      <tr id="filaCentroPoblado">
+                    
 			<td>Centro Poblado:</td>
 			<td>
 			    <input type="text" id="txtCentroPoblado_id"  name="txtCentroPoblado" style="width:160px; height:15px;" />
 			</td>
-		    </tr>
-                    <tr><td> <button id="btnBuscarCentroPoblado">Buscar</button> </td></tr>
+    </tr>
+		    <tr id="filaBuscarCentroPoblado">
+                   <td> <button id="btnBuscarCentroPoblado">Buscar</button> </td></tr>
 		</table>
 
 	   
@@ -205,29 +242,131 @@ if ($this->session->userdata('logged_in')===TRUE)
     </div>
 </div>
 
+
     </div>
     <div class="footer">&nbsp;</div>
     </div>
 
-<div class="ui-layout-center" style="max-width: 1200px;">
-    <div class="layerfloat">
-    <div  align="center">
+<div id="content_mapa" class="ui-layout-center" style="max-width: 1600px;">
+    
 
-	   <!--<img id="create-mapa_img" src="images/boton-imagen.png" alt="Crear Imagen" title="Crear Imagen" class="toolbarmapa" /> -->
-       <img id="create-ayuda" src="images/ayuda.png" alt="Obtener Ayuda" title="Obtener Ayuda" class="toolbarmapa" />
-       <img id="create-mapa_inicio" src="images/mapa.png" alt="Mapa Inicial" title="Mapa Inicial" class="toolbarmapa" />
-       <!--<img id="create-cerrar_session" src="images/salir.png" alt="Cerrar Session" title="Cerrar Session" class="toolbarmapa" />-->
+    
 
+    <div class="layerfloat" style="left:600px">
+   
+     <div > 
+	     <!--<img id="imprimir-mapa" src="images/ayuda.png"   alt="Obtener Ayuda" title="Obtener Ayuda" class="toolbarmapa"/>-->
+       
+
+<img id="mapa-resumen" src="images/ficha.png"   alt="Mapa Resumen" title="Mapa Distrital" class="toolbarmapa" />
+<img id="informacion-mapa-resumen" src="images/informacion.png"   title="Ficha Informativa del Resumen Nacional"  class="toolbarmapa" />
+<img id="create-mapa_inicio" src="images/mapa.png" alt="Mapa Inicial" title="Mapa Inicial" class="toolbarmapa" />
+<img id="create-ayuda" src="images/ayuda.png" alt="Obtener Ayuda" title="Obtener Ayuda" class="toolbarmapa" />
+       
+       
+     </div> 
 
     </div>
+
+    
+    <div class="layerfloat" style="left:600px;top:30px; background-color:#FFFFFF; width:150px; display:none" id="select-resumen" >
+    
+    <form id="myForm">
+    <input type="radio" name="myRadio" value="1"/> Distritos Actualizados <br/>
+    <input type="radio" name="myRadio" value="2"/> Distritos No Actualizados <br/>
+    </form> 
+
+     
     </div>
 
 
-    <div class="ui-layout-content" id="mainmap" ></div>
-    <div class="footer mapfooter">
-	Longitud:<label id="longitude"> 0</label> Latitud: <label id="latitude"> 0</label>
-	escala: <div id="scale-info" style="position: relative; display: inline;"></div>
-	<div id="output" style="display: inline;">de Distancia</div>
+    <div  id="etiqueta1" class="layerfloat" style="left: 30px; bottom: 50px; background-color:#FFFFFF; width:200px;border-radius: 5px; border-style: solid; border-width: 1px;">
+    
+
+
+
+    <div  id="leyenda_resumen" >     
+
+    <span id="titleyMercado" style="font-family:arial; font-size:11px; font-weight:bold; text-decoration:underline;  ">Leyenda </span>
+    <table>
+    <tr><td ><img src="images/rectangulo_rojo.png" /></td><td style="font-size: 10.5px" colspan=2 >  Areas con cartografia actualizada</td></tr>
+    <tr><td ><img src="images/rectangulo_blanco.png" /></td><td style="font-size: 10.5px" colspan=2 > Areas con cartografia no actualizada</td></tr>
+    </table>;
+
+  </div>
+
+      
+    
+    </div>    
+
+
+
+
+
+    <div id="etiqueta3" class="layerfloat" style="left: 30px; bottom: 30px;  width:400px;text-align:justify; font-size: 11px;  ">
+    
+    1/ Ley N&ordm;27795- Quinta Disposicion Transitoria y Final de la Ley de Demaraci&oacute;n y Organizaci&oacute;n 
+    Territorial: "En tanto se determina el saneamiento de los limites territoriales , conforme a  
+    la presente Ley , las limitaciones censales y/u otros relacionados con las circunscripciones  
+    existentes son de caracter referencial".
+    
+    <BR/>
+    <BR/>
+    Fuente Instituto Nacional de Estadistica e Informatica(INEI)
+    </div>
+
+
+    <div  id="etiqueta2"  class="layerfloat" style="left: 30px; bottom: 50px; color:#004da8; width:250px; ">
+    
+
+
+      
+    
+    </div>
+  <div  id="mainmap"  class="ui-layout-content"> </div>
+
+  
+
+<!--
+<div class="ui-layout-content">
+
+    <div  id="mainmap"  >
+    </div>
+</div>
+-->
+
+<!--
+    <div id="pruebaLeyenda" style="position: relative; left: 30px; bottom: 10px; z-index: 2;width:0px;height:0px" >
+    <p>PRUEBA </p>  
+    <br>
+    PRUEBA 2
+    </div>
+
+-->
+  
+
+<!--
+  <div style="width:1200px;margin:0 auto;background-color:#202931;border:1px solid #404951;height:800px;position:relative;">
+  
+    
+
+  <div class="ui-layout-content" id="mainmap"  ></div>
+  <div style="position: absolute; left: 10px; top: 30px; z-index: 1; font-size: 24px;background-color:#6495ED; padding:20px"> CONTENIDO UNO </div>
+  
+ 
+
+
+  </div>
+
+    -->    
+      
+
+
+     <div class="footer mapfooter">
+	   Longitud:<label id="longitude"> 0</label> Latitud: <label id="latitude"> 0</label>
+	   escala: <div id="scale-info" style="position: relative; display: inline; z-index:3;"></div>
+	   <div id="output" style="display: inline;">de Distancia</div>
+    
     </div>
 </div> <!-- layout center -->
 
@@ -264,7 +403,8 @@ if ($this->session->userdata('logged_in')===TRUE)
 		    </table>
        </div>
 
-   <div id="dialog-form_area_informacion" title="Informacion de Area de Influencia" >
+  
+  <div id="dialog-form_area_informacion" title="Informacion de Area de Influencia" >
        <table id="tblArea_informacion" >
 	<tbody>
 
@@ -286,19 +426,25 @@ if ($this->session->userdata('logged_in')===TRUE)
 
 </div>
 
+
+
    <div id="dialog-form_imagen" title="Exportacion de Mapa a JPG">
        <table id="tblArea_mapa" >
-	<tbody>
+	     <tbody>
 
         </tbody>
     </table>
    </div>
-<form action="index.php/area_influencia/exportar_excel" method="post"  target="_blank" id="FormularioExportacion">
 
+
+
+<form action="index.php/area_influencia/exportar_excel" method="post"  target="_blank" id="FormularioExportacion">
 <input type="hidden" id="datos_a_enviar_excel" name="datos_a_enviar_excel"/>
 <input type="hidden" id="excelubigeo" name="excelubigeo"/>
 <input type="hidden" id="excelccpp" name="excelccpp"/>
 </form>
+
+
 <form action="index.php/area_influencia/ficha_pdf" method="POST"  id="FormularioExportacionPdf">
 <input type="hidden" id="datos_a_enviar_pdf" name="datos_a_enviar_pdf" />
 <input type="hidden" id="txtManzanas"  name="txtManzanas"/>
@@ -380,12 +526,15 @@ if ($this->session->userdata('logged_in')===TRUE)
    <input type="hidden" id="imagen" name="imagen"/>
 
 </form>
+
 <form action="index.php/exportar_imagen" method="GET"  id="FormularioExportacionImagen">
     <input type="hidden" id="file" name="file">
 </form>
 
+
 <link rel="stylesheet" href="js/prettyLoader/css/prettyLoader.css" type="text/css"/>
 <script src="js/prettyLoader/js/jquery.prettyLoader.js" type="text/javascript" ></script>
+
 
    <link href="js/alertas/css/jquery.alerts.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/alertas/js/jquery.alerts.js" ></script>
@@ -397,25 +546,62 @@ if ($this->session->userdata('logged_in')===TRUE)
 
 id_session=<?php echo $this->session->userdata('id_session')?>;
 ip="<?php echo $ip;?>";
-       $(document).ready(function(){
-		$.prettyLoader();
-	});
 
+
+$(document).ready(function(){
+		//$.prettyLoader();
+
+
+/*
+
+$("#imprimir-mapa").click(function() {
+    
+
+        var element = $("#content_mapa"); // global variable
+        var getCanvas; 
+
+        html2canvas(element, {
+         onrendered: function (canvas) {
+
+                getCanvas = canvas;
+
+     var imgageData = canvas.toDataURL("image/png",1.0);
+     //alert(imgageData);
+    // Now browser starts downloading it instead of just showing it
+    var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    $("#imprimir-mapa").attr("download", "your_pic_name.png").attr("href", newData);
+
+             },
+       
+         });
+
+    
+        
+    });
+
+
+
+
+
+
+
+
+
+	
+*/
 
       if(navigator.appName=="Microsoft Internet Explorer"){
 
+            //setTimeout("activar_capas_resumen('1')",2700);
            setTimeout("activar_capas(0)",2700);
-
-
-        }else
+     }else
            {
+               
+        //setTimeout("activar_capas_resumen('1')",2700);
                setTimeout("activar_capas(0)",2700);
-
-
-
           }
 
-
+});
 
 
 </script>

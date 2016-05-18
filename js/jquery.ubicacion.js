@@ -1,5 +1,221 @@
 $(document).ready(function() {
+
+     /*   $("#filaDepartamento").hide();
+        $("#filaProvincia").hide();
+        $("#filaDistrito").hide();
+        $("#filaDistrito").hide();
+        $("#filaCentroPoblado").hide();
+        $("#filaBuscarCentroPoblado").hide();
+        $("#filaTipoDistritos").show();
+        
+       
+        crear_leyenda_resumen('1');
+*/
+
+        
+        $("#filaDepartamento").show();
+        $("#filaProvincia").show();
+        $("#filaDistrito").show();
+        $("#filaCentroPoblado").show();
+        $("#filaBuscarCentroPoblado").show();
+
+//        $("#filaTipoDistritos").hide();
+        $("#leyenda_resumen").show();
+
+        $("#etiqueta1").show();
+        $("#etiqueta2").hide();
+        $("#etiqueta3").hide();
+
+        //$("#informacion-mapa-resumen").hide();
+        
+        $("#select-resumen").hide();
+
+        $("#mapa-resumen").val('1');
+
+
+ $("#create-mapa_inicio" ).click(function() {
+      iniciar_variable();   
+      zoomInicial();
+  });
+
+
+
+$("#informacion-mapa-resumen").click(function(){
+
+//alert('Hola');
+tabla_info('00','Nacional');
+});
+
+
+$("#mapa-resumen").click(function(e){
+
+  /*     
+        
+if($("#mapa-resumen").val()=='1')
+
+{   
+    $("#select-resumen").show();
+    $("#mapa-resumen").val('2');
+}
+
+else
+{   
+    $("#select-resumen").hide();
+    $("#mapa-resumen").val('1');
+
+}
+
+ */
+
+
+ $("#leyenda_resumen").show();
+
+$("#etiqueta1").css({"bottom": "140px"});
+$("#etiqueta1").show();
+
+$("#etiqueta2").show();
+$("#etiqueta3").show(); 
+$("#informacion-mapa-resumen").show();
+$("#cboDepartamento").val("00");
+$('#cboProvincia').children().remove();
+$('#cboDistrito').children().remove();
+
+ crear_leyenda_resumen('1');
+activar_capas_resumen('1');
+activarpanelzoom('0');
+
+
+}) ;
+
+
+
+
+$('#myForm input').change(function(e) {
+var valor_leyenda=$('input[name="myRadio"]:checked', '#myForm').val();
+
+$("#leyenda_resumen").show();
+
+$("#etiqueta1").css({"bottom": "140px"});
+$("#etiqueta1").show();
+
+$("#etiqueta2").show();
+$("#etiqueta3").show(); 
+$("#informacion-mapa-resumen").show();
+$("#cboDepartamento").val("00");
+$('#cboProvincia').children().remove();
+$('#cboDistrito').children().remove();
+
+
+
+if(valor_leyenda=='1')
+{       
+               
+         crear_leyenda_resumen('1');
+         activar_capas_resumen('1');
+}
+
+else {
+         crear_leyenda_resumen('2');
+         activar_capas_resumen('2');
+}
+
+   //alert($('input[name="myRadio"]:checked', '#myForm').val()); 
+});
+
+/*
+
+$("#cboPresentacion").change(function(evento) {
+//alert($("#cboPresentacion").val());
+
+if($("#cboPresentacion").val()=='1')
+        {
+        $("#filaDepartamento").hide();
+        $("#filaProvincia").hide();
+        $("#filaDistrito").hide();
+        $("#filaCentroPoblado").hide();
+        $("#filaBuscarCentroPoblado").hide();
+
+        
+        $("#filaTipoDistritos").show();
+        $("#leyenda_resumen").show();
+        $("#etiqueta1").show();
+        $("#etiqueta2").show();
+        $("#etiqueta3").show();
+        
+
+        crear_leyenda_resumen('1');
+        activar_capas_resumen('1');
+
+        }
+else
+
+        {
+        $("#filaDepartamento").show();
+        $("#filaProvincia").show();
+        $("#filaDistrito").show();
+        $("#filaCentroPoblado").show();
+        $("#filaBuscarCentroPoblado").show();
+
+        $("#filaTipoDistritos").hide();
+        $("#leyenda_resumen").hide();
+        $("#etiqueta1").hide();
+        $("#etiqueta2").hide();
+        $("#etiqueta3").hide();
+        activar_capas(0);
+        
+
+        }
+
+});
+
+*/
+
+/*
+
+$("#cboTipoDistritos").change(function(e){
+var valor_tipo=$("#cboTipoDistritos").val();
+
+    if(valor_tipo=='1')
+        {
+
+          crear_leyenda_resumen('1');
+          activar_capas_resumen('1');
+        }
+
+
+    else
+    {
+
+    crear_leyenda_resumen('2');   
+    activar_capas_resumen('2');
+    }
+
+
+
+});
+
+*/
+
+
+
     $("#cboDepartamento").change(function(evento) { //iniciar_variable();
+        
+        //$('input[name="myRadio"]:checked', '#myForm').val('0');
+
+/*Valores iniciales del formulario del resumen */
+        //$("#informacion-mapa-resumen").hide();  
+        $('#myForm input').removeAttr('checked');
+        $("#select-resumen").hide();
+        $("#mapa-resumen").val('1');
+        $("#leyenda_resumen").hide();
+        $("#etiqueta1").hide();
+        $("#etiqueta2").hide();
+        $("#etiqueta3").hide();
+
+        $('#leyenda').children().remove();
+        $('#tblResultados tbody').children('tr').remove();
+        $('#leyenda').html('');
+//////////////////////////////////////////////*
         varcom = "";
         ubigeo = ""
 //                $("#txtCalle").val("");
@@ -10,37 +226,54 @@ $(document).ready(function() {
         $('#cboDistrito').children().remove();
 //                $('#txtCalle').val("");
 //                $('#txtCalle_id').val("");
+
+        seleccionar_departamento();
+
+//                log_visita_insertar('2', codciudad);
+    });
+
+
+function seleccionar_departamento()
+{
+
         var cadena = $('#cboDepartamento').attr('value').split('|'); //alert("cambiando combo");
         //alert(cadena);
         ubigeo = cadena[0];
-        ccdd=cadena[0];
-        ccpp='';
-        if (cadena)
+        accdd=cadena[0];
+        flag_sm = cadena[5];        
         
-        zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 1);
+        if (cadena)
+        {
+
+        if (accdd == "" || accdd == "00") {
+            activarpanelzoom('0'); //desactivar
+            iniciar_variable();
+            zoomInicial();
+        } else {
+            zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 1);
+            activarpanelzoom('1'); //activar
+        }
+
+        
+        }
         //zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 1); //(x,y) es el centroide de la ciudad {}
         //alert(cadena[1]);
-        codciudad = cadena[0]; //$('#cboCiudad').attr('value');
-        flag_sm = cadena[5];
+        
+
+
         if (flag_sm != '1') {
             $('#tdcheckEstra').css("display", "none")
         } else {
             $('#tdcheckEstra').css("display", "")
         }
-        if (codciudad == "" || codciudad == "00") {
-            activarpanelzoom('0'); //desactivar
-            //zoomInicial();
-        } else {
-            activarpanelzoom('1'); //activar
-        }
-        $('#tblResultados tbody').children('tr').remove();
-        $('#leyenda').html('');
+    
+        
         $(function() {
             $.ajax({
                 type: 'post',
                 dataType: 'html',
                 url: 'index.php/ubicacion/consultar_provincia',
-                data: 'accdd=' + codciudad,
+                data: 'accdd=' + accdd,
                 success: function(result) { //if(cbo!=''){
                     eval("$('#cboProvincia').addOption(" + result + ",false)"); //}
                     //alert(result)
@@ -51,46 +284,81 @@ $(document).ready(function() {
                 }
             });
         });
-//                log_visita_insertar('2', codciudad);
-    });
+}
+
+
+
+
 
     $("#cboProvincia").change(function(evento) { //iniciar_variable();
+        
+
         varcom = "";
-        ubigeo = ""
+        ubigeo = "";
+        $('#tblResultados tbody').children('tr').remove();
+        $('#leyenda').children().remove();
+        //$('#leyenda').children('tr').remove();
         $('#cboDistrito').children().remove();
+        seleccionar_provincia();
+    });
+
+
+    function seleccionar_provincia()
+
+    {   
+        
         var cadena = $('#cboProvincia').attr('value').split('|'); //alert("cambiando combo");
         //alert(cadena);
-        ubigeo = cadena[0] + cadena[1];
-        ccpp=cadena[1];
-        if (cadena)
-            zoom_ciudad_dist(cadena[2], cadena[3], cadena[4], cadena[5], 2);
+        //ubigeo = cadena[0] + cadena[1];
+        ubigeo = cadena[0];
+        //ccpp=cadena[1];
+        var accdd = ubigeo.substr(0,2); //$('#cboCiudad').attr('value');
+        var accpp = ubigeo.substr(2,4);
+        flag_sm = cadena[5];
 
-        var accdd = cadena[0]; //$('#cboCiudad').attr('value');
-        codciudad = cadena[1];
-        flag_sm = cadena[6];
+
+        if (cadena)
+        {  
+
+        if (accpp == "" || accpp == "00") 
+            //activarpanelzoom('0'); //desactivar
+            //zoomInicial();
+             seleccionar_departamento();
+
+    
+
+        //else {
+         //   activarpanelzoom('1'); 
+        //}  
+
+        else     
+            zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 2);
+        
+    
+        
+
+        }    
+            //zoom_ciudad_dist(cadena[], cadena[3], cadena[4], cadena[5], 2);
+
+
+
         if (flag_sm != '1') {
             $('#tdcheckEstra').css("display", "none")
         } else {
             $('#tdcheckEstra').css("display", "")
         }
-        if (codciudad == "" || codciudad == "00") {
-            activarpanelzoom('0'); //desactivar
-            //zoomInicial();
-        } else {
-            activarpanelzoom('1'); //activar
-        }
-        $('#tblResultados tbody').children('tr').remove();
-        $('#leyenda').html('');
+
+        
         $(function() {
             $.ajax({
                 type: 'post',
                 dataType: 'html',
                 url: 'index.php/ubicacion/consultar_distrito',
-                data: {'accdd': accdd, 'accpp': codciudad},
+                data: {'accdd': accdd, 'accpp': accpp},
                 success: function(result) { //if(cbo!=''){
                     eval("$('#cboDistrito').addOption(" + result + ",false)"); //}
-					
-					//$('#cboDistrito').addOption(JSON.parse(result),false); 
+                    
+                    //$('#cboDistrito').addOption(JSON.parse(result),false); 
 
                     //alert(result)
                 },
@@ -100,24 +368,45 @@ $(document).ready(function() {
                 }
             });
         });
-    });
+
+    }
+
+
+
 
     $("#cboDistrito").change(function(evento) {
         varcom = "";
         $('#txtCalle').val("");
-        var cadena = $('#cboDistrito').attr('value').split('|');
-        //alert(cadena);
-        ubigeo = cadena[0];
+        seleccionar_distrito();
         
-        zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 3);
-         //$('#cboDistrito').attr('value');
-//        buscar_centros_poblados();
-//        log_visita_insertar('3', ubigeo);
-//        $('#tblResultados tbody').children('tr').remove();
-//        $('#leyenda').html('');
+    });
+
+
+    function seleccionar_distrito()
+    {
+
+        var cadena = $('#cboDistrito').attr('value').split('|');
+        ubigeo = cadena[0];
+        var accdd = ubigeo.substr(0,2); 
+        var accpp = ubigeo.substr(2,4);   
+        var accddi = ubigeo.substr(4,6); 
+        if (cadena)
+        {    
+            
+    
+        if (accpp == "" || accpp == "00") 
+              seleccionar_provincia();
+
+        else
+             zoom_ciudad_dist(cadena[1], cadena[2], cadena[3], cadena[4], 3);   
+
+        }
+
         buscar_centros_poblados();
         crear_leyenda_mapa();
-    });
+    }
+
+
 
 
 $("#txtCentroPoblado_id").keyup(function(event){
@@ -176,6 +465,7 @@ function buscar_centro_poblado() {
         }
     });
 }
+
 
 
 function buscar_centros_poblados() {
@@ -257,6 +547,145 @@ function crear_leyenda_mzn_estab() {
         ley = ley + '</div>';
         $('#leyenda').html(ley);
     }
+
+
+
+
+
+
+function crear_leyenda_resumen(tipo){
+        
+
+
+        var cant_distritos='';
+        var ley='';
+var cant_distritos_no='';
+/*
+       $.ajax({
+        type: 'get',
+        dataType: 'html',
+        url: 'index.php/ubicacion/leyenda_resumen',
+        data: {'tipo': tipo},
+        success: function(result) { //if(cbo!=''){
+            //eval("$('#cboDistrito').addOption(" + result + ",false)"); //}
+            //alert(result)
+            //$('#leyenda').html(result);
+
+            //alert(result);
+
+        cant_distritos=result;  
+
+        ley = ley + '<span id="titleyMercado" style="font-family:arial; font-size:11px; font-weight:bold; text-decoration:underline;  ">Leyenda </span>';
+        ley = ley + '<table>';
+        
+       // if(tipo=='1')
+        ley = ley + '<tr><td ><img src="images/rectangulo_verde3.png" /></td><td style="font-size: 10.5px" colspan=2 > '+cant_distritos+' Distritos 1/ con cartografia actualizada</td></tr>';
+        
+       // else
+        ley = ley + '<tr><td ><img src="images/rectangulo_rojo3.png" /></td><td style="font-size: 10.5px" colspan=2 > '+cant_distritos+' Distritos 1/ con cartografia no actualizada</td></tr>';    
+
+
+        ley = ley + '</table>';
+        
+        $('#leyenda_resumen').html(ley);    
+
+            //alert(cant_distritos);
+
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+        });
+    
+
+*/
+
+
+
+       $.ajax({
+        type: 'get',
+        dataType: 'html',
+        url: 'index.php/ubicacion/leyenda_resumen',
+        data: {'tipo': '2'},
+        success: function(result) { //if(cbo!=''){
+            //eval("$('#cboDistrito').addOption(" + result + ",false)"); //}
+            //alert(result)
+            //$('#leyenda').html(result);
+
+            //alert(result);
+
+        cant_distritos_no=result;  
+
+        
+        
+        //$('#leyenda_resumen').html(ley);    
+
+            //alert(cant_distritos);
+
+
+
+        $.ajax({
+        type: 'get',
+        dataType: 'html',
+        url: 'index.php/ubicacion/leyenda_resumen',
+        data: {'tipo': tipo},
+        success: function(result2) { 
+
+        cant_distritos=result2;  
+
+        ley = ley + '<span id="titleyMercado" style="font-family:arial; font-size:11px; font-weight:bold; text-decoration:underline;  ">Leyenda </span>';
+        ley = ley + '<table>';
+        
+       // if(tipo=='1')
+        ley = ley + '<tr><td ><img src="images/rectangulo_verde3.png" /></td><td style="font-size: 10.5px" colspan=2 > '+cant_distritos+' Distritos 1/ con cartografia actualizada</td></tr>';
+        
+       // else
+        ley = ley + '<tr><td ><img src="images/rectangulo_rojo3.png" /></td><td style="font-size: 10.5px" colspan=2 > '+cant_distritos_no+' Distritos 1/ con cartografia no actualizada</td></tr>';    
+
+
+        ley = ley + '</table>';
+        
+        $('#leyenda_resumen').html(ley);    
+
+            //alert(cant_distritos);
+
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+        });
+    
+
+
+
+
+
+
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+        });
+
+
+
+        
+
+
+//            alert(cant_distritos);
+        
+/*        ley = ley + '<span id="titleyMercado" style="font-family:arial; font-size:11px; font-weight:bold; text-decoration:underline;  ">Leyenda </span>';
+        ley = ley + '<table>';
+        ley = ley + '<tr><td ><img src="images/rectangulo_rojo.png" /></td><td style="font-size: 10.5px" colspan=2 > '+cant_distritos+' Distritos con cartografia actualizada</td></tr>';
+        ley = ley + '</table>';
+        
+        $('#leyenda_resumen').html(ley);
+*/
+}
+
 
 
 function mapa_centropoblado(cad1,cad2,cad3,cad4) {

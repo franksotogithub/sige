@@ -59,6 +59,52 @@ class Area_influencia_model extends CI_Model {
 
 
 
+   function consultar_area_influencia_datos_nacional() {
+
+        //$sql = "select * from CARTOGRAFIA where ubigeo = '".$ubigeo."' and codccpp='".$ccpp."' order by ubigeo, codccpp, poblacion, vivienda";
+        //despues de frecuencia \"tiempo en minutos\" as \"tiempo en minutos hacia la capital del distrito\",
+        $sql = "select 
+                    count(gid) as \"Total de departamentos\", 
+                    sum(total_pp)  as  \"Total de provincias\", 
+                    sum(total_di)  as  \"Total de distritos\",     
+                    sum(total_ccpp)  as  \"Total de centros poblados\",
+                    sum(p29_1) \"Vivienda particular\",
+                    sum(p29_2) \"Establecimiento\",
+                    sum(p29_3) \"Vivienda y Establecimento\",
+                    sum(p29_4) \"Vivienda colectiva\",
+                    sum(p29_5) \"Otro tipo de registro\",
+                    sum(p30_1) \"Vivienda con ocupantes presentes\",
+                    sum(p30_2) \"Vivienda con ocupantes ausentes\",
+                    sum(p30_3) \"Vivienda en alquiler o venta\",
+                    sum(p30_4) \"Vivienda en construccion o reparacion\",
+                    sum(p30_5) \"Vivienda abandonada o cerrada\",
+                    sum(p30_6) \"Otro tipo de vivienda desocupada\",
+                    sum(total_pers) \"Total de personas\",
+                    sum(total_m) \"Total de mujeres\",
+                    sum(total_h) \"Total de hombres\",
+                    sum(rr1) \"Poblacion de 0 a 14 años \",
+                    sum(rr2) \"Poblacion de 15 a 64 años\",
+                    sum(rr3) \"Poblacion de 65 a mas años\",
+                    sum(p34_1) \"Establecimiento activo\",
+                    sum(p34_2) \"Establecimiento inactivo\",
+                    sum(p34_3) \"Establecimiento en construccion\",
+                    sum(p38) \"Numero de trabajadores\"
+                    from departamentos_2014 where prj_atlas_estado='1' ";
+
+        $rs = $this->db->query($sql);
+        $_result = $rs->result();
+        $this->count_rows = count($_result);
+        $this->total_pages = count($_result);
+        $result = array();
+        if ($rs->num_rows() > 0) {
+            $result = $rs->result_array();
+        }
+        $rs->free_result();
+        return $result;
+    }
+
+
+
 
 
 
@@ -215,9 +261,9 @@ class Area_influencia_model extends CI_Model {
                     \"centro poblado\",
 					categoria,
 				    ubigeo || codccpp as \"codigo de ubigeo y centro poblado\",  
-		    coordenada_x as longitud,
+		              coordenada_x as longitud,
                     coordenada_y as latitud,
-		    coordenada_z as altitud,
+		              coordenada_z as altitud,
                     poblacion,
                     vivienda,
                     \"agua por red publica\",

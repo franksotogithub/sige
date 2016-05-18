@@ -300,6 +300,61 @@ class Area_influencia extends CI_Controller {
         echo json_encode($response);
     }
 
+  function consultar_reporte_nacional() {
+        
+        $rs = $this->area_influencia_model->consultar_area_influencia_datos_nacional();
+        
+        $response = new stdClass();
+        $response->page = 1;  // current page 
+        $response->total = $this->area_influencia_model->total_pages;   // total pages 
+        $response->records = $this->area_influencia_model->count_rows;   // total records 
+        $i = 0;
+        //var_dump($rs);
+        //exit();
+        foreach ($rs as $clave => $row) {
+
+            foreach ($row as $k => $v) {
+                //echo $k . ' ' .$v . '<br />';
+                $response->rows[$i]['id'] = $i; //id 
+                $cell = array(strtoupper($k));
+                
+                $porcentaje=0;
+
+                if($i=='0' )
+                {
+                    $porcentaje=(round($v/25 *100,2 )).'%';
+                    //$porcentaje=(bcdiv($v,'25' ,2 )*100).'%';
+
+                   array_push($cell,'',$v,''); 
+                //array_push($cell,'25',$v,$porcentaje);
+                }
+
+                else if($i=='1' )
+                {
+
+                    $porcentaje=(round($v/196 *100,2 )).'%';
+                    //$porcentaje=(bcdiv($v,'196' ,2 )*100).'%';
+                    //array_push($cell,'196',$v,$porcentaje);
+                    array_push($cell,'',$v,''); 
+
+                }
+                else if($i=='2' )
+                {
+                    $porcentaje=(round($v/1866*100 ,2 )).'%';
+                    //$porcentaje=(bcdiv($v,'1866' ,2 )*100).'%';
+                    array_push($cell,'1866',$v,$porcentaje);
+                }
+                else 
+                array_push($cell,'',$v,'');
+                    
+                $response->rows[$i]['cell'] = $cell;
+
+                $i++;
+            }
+        }
+
+        echo json_encode($response);
+    }
 
 
   function consultar_reporte_dpto() {
@@ -564,6 +619,7 @@ function consultar_reporte_viv_img_flag() {
         $this->load->view('excel_view', $data);
 
     }
+
 
 
 

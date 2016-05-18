@@ -31,8 +31,6 @@ function log_visita_insertar(tipo,parametro)
 	    });
 	});
 
-
-
 }
 
 
@@ -44,43 +42,7 @@ function limpiar_ciudad(){
 
 
 
-function iniciar_variable()
-{
 
-	url_servidormap= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/mapa_negocios_cp.map";
-	url_servidormap_2= "http://sige.inei.gob.pe/cgi-bin/mapserv?map=/var/www/html/test/atlas/map/";
-
-
-
-
-	proxy_prefix="./proxy.php?url=";
-
-	//Iniciar autocomplete
-	varcom="";
-	ubigeo =""
-
-	//area influencia
-
-	bloque_id_manzana="" ;
-	bloque_puntos_influencia="";
-
-	//ubicacion
-
-	ubigeo="";
-	codciudad="";
-	flag_sm="";
-	//js mapa
-
-	imagen2="";
-	iColor[0]="";
-	iColor[1]="";
-	iColor[2]="";
-	iColor[3]="";
-
-	//inicializar combo ciudad
-	limpiar_ciudad();
-	$('#tblResultados tbody').children('tr').remove();
-}
 
 
 

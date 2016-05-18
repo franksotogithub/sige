@@ -20,8 +20,18 @@ class Ubicacion_model extends CI_Model {
     }
 
     function consultar_provincia($accdd) {
-        $query = $this->db->get("provincia_consultar2('$accdd')");
+        $query = $this->db->get("provincia_consultar3('$accdd')");
         return $query->result();
+    }
+
+    function leyenda_resumen_distritos_actualizados(){
+        $query=$this->db->query("select count(gid) as cantidad  from  distritos_2014 where prj_atlas_estado='1'");
+         return $query->result();
+    }
+
+    function leyenda_resumen_distritos_no_actualizados(){
+        $query=$this->db->query("select count(gid) cantidad  from  distritos_2014 where prj_atlas_estado<>'1'");
+         return $query->result();
     }
 
     function consultar_distrito($accdd, $accpp) {

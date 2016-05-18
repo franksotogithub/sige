@@ -78,6 +78,43 @@ class Ubicacion extends CI_Controller {
         echo json_encode($data);
     }
 
+
+
+
+
+
+   function leyenda_resumen() {
+        
+        $tipo=$_GET['tipo'];
+        $data = '';
+
+
+        if($tipo=='1')
+        {    
+               $rs = $this->ubicacion_model->leyenda_resumen_distritos_actualizados();
+
+        }
+
+        else
+        {
+
+              $rs = $this->ubicacion_model->leyenda_resumen_distritos_no_actualizados();
+        }
+
+
+        foreach ($rs as $row) {
+            $data = $row->cantidad;
+        }
+   
+
+        echo $data;
+
+
+    }
+
+
+
+
     function leyenda_centropoblado() {
                 $ubigeo = $_POST['aubigeo'];
         $centro = $_POST['aterm'];

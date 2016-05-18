@@ -63,9 +63,15 @@ function LoadMap(divId) {
  
 	//map.addControl(new OpenLayers.Control.PanZoom()); 
 	//map.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':false})); /*QUITAR AL FINAL*/ 	
+	
+
 	var movermouse = new OpenLayers.Control.DragPan();
 
  map.addControl(movermouse);
+//map.addControl(new OpenLayers.Control.LayerSwitcher());
+
+
+//map.addControl(new OpenLayers.Control.WMSLegend());
     movermouse.activate();
 			
 	return map;
