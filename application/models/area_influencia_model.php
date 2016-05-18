@@ -64,10 +64,10 @@ class Area_influencia_model extends CI_Model {
         //$sql = "select * from CARTOGRAFIA where ubigeo = '".$ubigeo."' and codccpp='".$ccpp."' order by ubigeo, codccpp, poblacion, vivienda";
         //despues de frecuencia \"tiempo en minutos\" as \"tiempo en minutos hacia la capital del distrito\",
         $sql = "select 
-                    count(gid) as \"Total de departamentos\", 
-                    sum(total_pp)  as  \"Total de provincias\", 
-                    sum(total_di)  as  \"Total de distritos\",     
-                    sum(total_ccpp)  as  \"Total de centros poblados\",
+                    count(gid) as \"Departamentos\", 
+                    sum(total_pp)  as  \"Provincias\", 
+                    sum(total_di)  as  \"Distritos\",     
+                    sum(total_ccpp)  as  \"Centros poblados\",
                     sum(p29_1) \"Vivienda particular\",
                     sum(p29_2) \"Establecimiento\",
                     sum(p29_3) \"Vivienda y Establecimento\",

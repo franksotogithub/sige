@@ -516,11 +516,7 @@ var zoom_valor= mainMap.getZoom();
 
 
 
-
-
 if(temp_capa==0){
-
-
 
             $.ajax({
                 type: 'GET',
@@ -1055,7 +1051,7 @@ function cargar_grilla_nacional(){
 
     //alert("temp_capa");
     $("#tblArea_informacion").jqGrid('GridUnload');
-    data = {"names": ["Descripci&oacute;n", "Total","Actualizados","Porcentaje"] };
+    data = {"names": ["Descripci&oacute;n", "Numero","Actualizados","%"] };
 
     
     var url_ubi='';
@@ -1071,10 +1067,10 @@ function cargar_grilla_nacional(){
      
         colNames: data.names,
         colModel: [
-            {name: 'descripcion', index: 'descripcion', width: 300, sortable: false},
-            {name: 'total', index: 'vnac', width: 90, sortable: false, formatter: nullFormatter},
-             {name: 'actualizado', index: 'vnac', width: 120, sortable: false, formatter: nullFormatter},
-             {name: 'porcentaje', index: 'vnac', width: 100, sortable: false, formatter: nullFormatter}
+            {name: 'descripcion', index: 'descripcion', width: 300, sortable: false,},
+            {name: 'numero', index: 'vnac', width: 90, sortable: false, formatter: nullFormatter,align:'right'},
+             {name: 'actualizado', index: 'vnac', width: 120, sortable: false, formatter: nullFormatter,align:'right'},
+             {name: '%', index: 'vnac', width: 100, sortable: false, formatter: nullFormatter,align:'right'}
         ],
         rowNum: 300,
         rowList: [10, 20, 30],

@@ -322,25 +322,25 @@ class Area_influencia extends CI_Controller {
 
                 if($i=='0' )
                 {
-                    $porcentaje=(round($v/25 *100,2 )).'%';
+                    $porcentaje=(round($v/25 *100,1 )).'%';
                     //$porcentaje=(bcdiv($v,'25' ,2 )*100).'%';
 
-                   array_push($cell,'',$v,''); 
+                   array_push($cell,'25',$v,''); 
                 //array_push($cell,'25',$v,$porcentaje);
                 }
 
                 else if($i=='1' )
                 {
 
-                    $porcentaje=(round($v/196 *100,2 )).'%';
+                    $porcentaje=(round($v/196 *100,1 )).'%';
                     //$porcentaje=(bcdiv($v,'196' ,2 )*100).'%';
                     //array_push($cell,'196',$v,$porcentaje);
-                    array_push($cell,'',$v,''); 
+                    array_push($cell,'196',$v,''); 
 
                 }
                 else if($i=='2' )
                 {
-                    $porcentaje=(round($v/1866*100 ,2 )).'%';
+                    $porcentaje=(round($v/1866*100 ,1 )).'%';
                     //$porcentaje=(bcdiv($v,'1866' ,2 )*100).'%';
                     array_push($cell,'1866',$v,$porcentaje);
                 }
